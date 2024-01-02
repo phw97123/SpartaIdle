@@ -9,8 +9,19 @@ public class PlayerIdleState : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        StartAnimation(stateMachine.Player.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash); 
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash); 
+    }
+
+    public override void Update()
+    {
+        if(stateMachine.Target)
+            stateMachine.ChangeState(stateMachine.ChasingState); 
     }
 
 }
