@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Animator Animator { get; private set; }
-
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
+
+    [field: SerializeField] public PlayerSO Data { get; private set; }
+    public Animator Animator { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
     private PlayerStateMachine stateMachine;
 
-    public Health Health { get; private set; }
     public Weapon weapon;
 
-
-    private WaitForSeconds waitTime = new WaitForSeconds(3.0f);
+    public Health Health { get; private set; }
 
     private void Awake()
     {
         AnimationData = new CharacterAnimationData();
         AnimationData.Initialize();
 
-        Animator = GetComponentInChildren<Animator>();
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
-
-        stateMachine = new PlayerStateMachine(this);
+        Animator = GetComponentInChildren<Animator>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         Health = GetComponent<Health>();    
+        stateMachine = new PlayerStateMachine(this);
     }
 
     private void Start()
@@ -45,13 +45,6 @@ public class Player : MonoBehaviour
     private void OnDie()
     {
         Animator.SetTrigger("Die");
-        StartCoroutine(Resurrection()); 
-    }
-
-    public IEnumerator Resurrection()
-    {
-        yield return waitTime;
-
-        // 플레이어 데이터 초기화 
+        enabled = false;
     }
 }

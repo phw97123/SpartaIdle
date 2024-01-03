@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
-    public Health Target { get; private set; }
+    public Health Target;
     public PlayerIdleState IdleState { get; }
     public PlayerChasingState ChasingState { get; }
     public PlayerAttackState AttackState { get; }

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
 {
-    bool aleadyCollider; 
+    private bool alreadyAppliedForce;
+    private bool alreadyAppliedDealing;
 
     public PlayerAttackState(PlayerStateMachine palyerStateMachine) : base(palyerStateMachine)
     {
@@ -11,31 +12,30 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
-        aleadyCollider = false;
+        alreadyAppliedForce = false;
+        alreadyAppliedDealing = false;
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
-        StartAnimation(stateMachine.Player.AnimationData.BaseAttackParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
         StopAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
-        StopAnimation(stateMachine.Player.AnimationData.BaseAttackParameterHash);
     }
 
     public override void Update()
     {
         base.Update();
 
-        float time = GetNormalizedTime(stateMachine.Player.Animator, "Attack");
-
-        if (time < 1f)
+        // ForceMove();
+        float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "Attack");
+        if (normalizedTime < 1f)
         {
-            if (!aleadyCollider)
+            if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Player.Data.Dealing_Start_TransitionTime)
             {
-                stateMachine.Player.weapon.SetAttack(100);
-                aleadyCollider = true;
+                stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage, stateMachine.Player.Data.Force);
+                alreadyAppliedDealing = true;
             }
         }
         else
@@ -45,13 +45,21 @@ public class PlayerAttackState : PlayerBaseState
                 stateMachine.ChangeState(stateMachine.ChasingState);
                 return;
             }
-            else if (!stateMachine.Target) 
+            else
             {
                 stateMachine.ChangeState(stateMachine.IdleState);
                 return;
             }
-            return; 
         }
+    }
 
+    private void TryApplyForce()
+    {
+        if (alreadyAppliedForce) return;
+        alreadyAppliedForce = true;
+
+        stateMachine.Player.ForceReceiver.Reset();
+
+        stateMachine.Player.ForceReceiver.AddForce(stateMachine.Player.transform.forward * stateMachine.Player.Data.Force);
     }
 }

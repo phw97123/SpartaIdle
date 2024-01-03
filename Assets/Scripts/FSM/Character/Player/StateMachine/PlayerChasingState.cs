@@ -19,7 +19,8 @@ public class PlayerChasingState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-        Move(); 
+        Move();
+
         if (!stateMachine.Target)
         {
             stateMachine.ChangeState(stateMachine.IdleState);

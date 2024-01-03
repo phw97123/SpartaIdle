@@ -23,7 +23,6 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
-
     }
 
     protected void StartAnimation(int animationHash)
@@ -43,6 +42,10 @@ public class EnemyBaseState : IState
         Move(movementDirection);
     }
 
+    protected void ForceMove()
+    {
+        stateMachine.Enemy.CharacterRigidbody2D.velocity = stateMachine.Enemy.CharacterRigidbody2D.position + stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime;
+    }
     private void Move(Vector2 direction)
     {
         float movementSpeed = GetMovementSpeed();
@@ -57,6 +60,8 @@ public class EnemyBaseState : IState
         stateMachine.Enemy.transform.rotation = rotation;
     }
 
+  
+
     private Vector2 GetMovementDirection()
     {
         return (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
@@ -69,11 +74,30 @@ public class EnemyBaseState : IState
         return movementSpeed;
     }
 
+    protected float GetNormalizedTime(Animator animator, string tag)
+    {
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+
+        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
+        {
+            return nextInfo.normalizedTime;
+        }
+        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        {
+            return currentInfo.normalizedTime;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
     protected bool IsInAttackRange()
     {
         if (stateMachine.Target.IsDead) return false; 
 
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-        return enemyDistanceSqr <= 0.7 * 0.7;
+        return enemyDistanceSqr <= 1.5 * 1.5;
     }
 }

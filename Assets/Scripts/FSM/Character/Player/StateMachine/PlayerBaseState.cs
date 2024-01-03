@@ -1,10 +1,11 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerBaseState : IState
 {
 
     protected PlayerStateMachine stateMachine;
-    Vector2 size = new Vector2(1, 1); 
+    Vector2 size = new Vector2(1, 1);
 
     public PlayerBaseState(PlayerStateMachine palyerStateMachine)
     {
@@ -25,10 +26,7 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        LayerMask monsterLayerMask = 6;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(stateMachine.Player.transform.position, size, 3, monsterLayerMask);
-        foreach (Collider2D co in colliders)
-            Debug.Log(co);
+  
     }
 
     protected void StartAnimation(int animationHash)
@@ -58,9 +56,9 @@ public class PlayerBaseState : IState
     private void Rotate(Vector2 direction)
     {
         float angle = direction.x;
-        angle = (angle < 0) ? 0 : 180; 
+        angle = (angle < 0) ? 0 : 180;
         Quaternion rotation = Quaternion.Euler(0, angle, 0);
-        stateMachine.Player.transform.rotation = rotation; 
+        stateMachine.Player.transform.rotation = rotation;
     }
 
     private Vector2 GetMovementDirection()
@@ -96,9 +94,41 @@ public class PlayerBaseState : IState
 
     protected bool IsInAttackRange()
     {
-        if(stateMachine.Target.IsDead) return false;
+        if (stateMachine.Target.IsDead) return false;
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= 0.7 * 0.7;
+        return playerDistanceSqr <= .7f * .7f;
+    }
+
+    protected void ForceMove()
+    {
+        stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position + stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
+    }
+
+    public Transform GetClosestEnemy()
+    {
+        Vector2 currentPosition = stateMachine.Player.transform.position;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(currentPosition, 10f, 6);
+
+        if (colliders.Length == 0)
+        {
+            return null;
+        }
+
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider2D collider in colliders)
+        {
+            float distance = Vector2.Distance(currentPosition, collider.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = collider.transform;
+            }
+        }
+
+        return closestEnemy;
     }
 }

@@ -9,10 +9,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
 
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
 
     private EnemyStateMachine stateMachine;
 
-    public Health Health { get; private set; } 
+    public Health Health { get;  set; } 
 
     public Weapon weapon; 
 
@@ -23,17 +24,19 @@ public class Enemy : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         stateMachine = new EnemyStateMachine(this);
 
         Health = GetComponent<Health>();
     }
 
-    private void Start()
+    public void Init()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie; 
     }
+
     private void Update()
     {
         stateMachine.HandleInput();
@@ -43,7 +46,6 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         Animator.SetTrigger("Die");
-        enabled = false; 
-        Destroy(gameObject);
+        Health.OnDie -= OnDie;
     }
 }

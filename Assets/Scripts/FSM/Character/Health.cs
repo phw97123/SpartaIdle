@@ -15,13 +15,13 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
-    {
+           {
         if (health == 0) return;
         health =  Mathf.Max(health - damage, 0);
 
         if (health == 0)
             OnDie?.Invoke();
 
-        Debug.Log($"Health : {health}");
+        Debug.Log($"{this.name}Health : {health}");
     }
 }
