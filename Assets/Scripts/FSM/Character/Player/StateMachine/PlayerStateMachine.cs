@@ -9,13 +9,12 @@ public class PlayerStateMachine : StateMachine
     public PlayerChasingState ChasingState { get; }
     public PlayerAttackState AttackState { get; }
 
-    public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; } = 5f; 
 
     public PlayerStateMachine(Player player)
     {
         Player = player;
-        Target = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Health>();
+        Target = null; 
 
         IdleState = new PlayerIdleState(this); 
         ChasingState = new PlayerChasingState(this);

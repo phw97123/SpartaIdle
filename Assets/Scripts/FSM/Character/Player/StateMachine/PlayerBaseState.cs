@@ -1,12 +1,8 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerBaseState : IState
 {
-
     protected PlayerStateMachine stateMachine;
-    Vector2 size = new Vector2(1, 1);
-
     public PlayerBaseState(PlayerStateMachine palyerStateMachine)
     {
         stateMachine = palyerStateMachine;
@@ -25,8 +21,12 @@ public class PlayerBaseState : IState
     }
 
     public virtual void Update()
-    {
-  
+    { 
+
+        stateMachine.Target = GetClosestEnemy();
+
+        if (stateMachine.Target == null)
+            stateMachine.ChangeState(stateMachine.IdleState); 
     }
 
     protected void StartAnimation(int animationHash)
@@ -49,7 +49,8 @@ public class PlayerBaseState : IState
     private void Move(Vector2 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position + (direction * movementSpeed) * Time.deltaTime);
+        stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position 
+            + (direction * movementSpeed) * Time.deltaTime);
 
     }
 
@@ -68,7 +69,6 @@ public class PlayerBaseState : IState
 
     private float GetMovementSpeed()
     {
-        // TODO : 캐릭터 스텟 만들어지면 정확한 속도 넣기 
         float movementSpeed = stateMachine.MovementSpeed;
         return movementSpeed;
     }
@@ -94,41 +94,37 @@ public class PlayerBaseState : IState
 
     protected bool IsInAttackRange()
     {
+        if (!stateMachine.Target) return false; 
         if (stateMachine.Target.IsDead) return false;
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= .7f * .7f;
+        return playerDistanceSqr <= 0.5f * 0.5f;
     }
 
-    protected void ForceMove()
-    {
-        stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position + stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
-    }
-
-    public Transform GetClosestEnemy()
+    public Health GetClosestEnemy()
     {
         Vector2 currentPosition = stateMachine.Player.transform.position;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(currentPosition, 10f, 6);
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy"); 
 
-        if (colliders.Length == 0)
+        if (targets.Length == 0)
         {
             return null;
         }
 
-        Transform closestEnemy = null;
+        GameObject closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (Collider2D collider in colliders)
+        foreach (GameObject target in targets)
         {
-            float distance = Vector2.Distance(currentPosition, collider.transform.position);
+            float distance = Vector2.Distance(currentPosition, target.transform.position);
 
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestEnemy = collider.transform;
+                closestEnemy = target;
             }
         }
 
-        return closestEnemy;
+        return closestEnemy.GetComponent<Health>();
     }
 }

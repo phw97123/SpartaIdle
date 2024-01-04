@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
@@ -12,7 +11,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
-        alreadyAppliedForce = false;
+        alreadyAppliedForce = false; 
         alreadyAppliedDealing = false;
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
@@ -28,13 +27,15 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.Update();
 
-        // ForceMove();
         float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "Attack");
         if (normalizedTime < 1f)
         {
+            stateMachine.Player.weapon.GetComponent<Collider2D>().enabled = alreadyAppliedDealing;
+
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Player.Data.Dealing_Start_TransitionTime)
             {
-                stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage, stateMachine.Player.Data.Force);
+                stateMachine.Player.weapon.GetComponent<Collider2D>().enabled = alreadyAppliedDealing;
+                stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage);
                 alreadyAppliedDealing = true;
             }
         }
@@ -51,15 +52,5 @@ public class PlayerAttackState : PlayerBaseState
                 return;
             }
         }
-    }
-
-    private void TryApplyForce()
-    {
-        if (alreadyAppliedForce) return;
-        alreadyAppliedForce = true;
-
-        stateMachine.Player.ForceReceiver.Reset();
-
-        stateMachine.Player.ForceReceiver.AddForce(stateMachine.Player.transform.forward * stateMachine.Player.Data.Force);
     }
 }

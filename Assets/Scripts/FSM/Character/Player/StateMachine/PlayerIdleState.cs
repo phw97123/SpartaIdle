@@ -21,6 +21,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void Update()
     {
         base.Update();
+
         if(stateMachine.Target)
         {
             stateMachine.ChangeState(stateMachine.ChasingState); 
@@ -28,7 +29,6 @@ public class PlayerIdleState : PlayerBaseState
         else if(IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.AttackState);
-
         }
     }
 }

@@ -1,62 +1,57 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
-    private List<GameObject> enemies = new List<GameObject>();
-    private List<GameObject> enemyPool = new List<GameObject>();
+    public GameObject[] prefabs;
+    List<GameObject>[] pools;
 
-    private int poolSize = 5;
-
-    private void Start()
+    void Awake()
     {
-        InitializePool(); 
+        pools = new List<GameObject>[prefabs.Length];
+
+        for (int index = 0; index < pools.Length; index++)
+            pools[index] = new List<GameObject>();
     }
 
-    private void InitializePool()
+    public GameObject Get()
     {
-        GameObject[] enemyPrefabs = Resources.LoadAll<GameObject>("Enemies");
+        int index = UnityEngine.Random.Range(0, prefabs.Count());
+        GameObject select = null;
 
-        if (enemyPrefabs != null && enemyPrefabs.Length > 0)
+        foreach (GameObject item in pools[index])
         {
-            enemies.AddRange(enemyPrefabs);
-        }
-
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject enemy = GetRandomEnemyPrefab();
-            enemy.SetActive(false);
-            enemyPool.Add(enemy);
-        }
-    }
-
-    private GameObject GetRandomEnemyPrefab()
-    {
-        int randomIndex = UnityEngine.Random.Range(0, enemies.Count);
-        return enemies[randomIndex];
-    }
-
-    public GameObject GetEnemyFromPool()
-    {
-        foreach (GameObject enemy in enemyPool)
-        {
-            if (!enemy.activeInHierarchy)
+            if (!item.activeSelf)
             {
-                enemy.SetActive(true);
-                return enemy;
+                select = item;
+                select.SetActive(true);
+                break;
             }
         }
 
-        GameObject newEnemy = GetRandomEnemyPrefab();
-        enemyPool.Add(newEnemy);
-        return newEnemy;
+        if (!select)
+        {
+            select = Instantiate(prefabs[index], transform);
+            pools[index].Add(select);
+        }
+
+        return select;
     }
 
-    public void ReturnToPool(Enemy enemy)
+    public void Clear(int index)
     {
-        enemy.Health.OnDie -= () =>ReturnToPool(enemy);
-        enemy.gameObject.SetActive(false);
+        foreach (GameObject item in pools[index])
+            item.SetActive(false);
+    }
+
+    public void ClearAll()
+    {
+        for (int index = 0; index < pools.Length; index++)
+            foreach (GameObject item in pools[index])
+                item.SetActive(false);
     }
 }

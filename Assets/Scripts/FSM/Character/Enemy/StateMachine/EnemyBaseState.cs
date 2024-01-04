@@ -42,14 +42,10 @@ public class EnemyBaseState : IState
         Move(movementDirection);
     }
 
-    protected void ForceMove()
-    {
-        stateMachine.Enemy.CharacterRigidbody2D.velocity = stateMachine.Enemy.CharacterRigidbody2D.position + stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime;
-    }
     private void Move(Vector2 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Enemy.CharacterRigidbody2D.MovePosition(stateMachine.Enemy.CharacterRigidbody2D.position +  (direction*movementSpeed) *Time.deltaTime );
+        stateMachine.Enemy.CharacterRigidbody2D.MovePosition(stateMachine.Enemy.CharacterRigidbody2D.position +  (direction*movementSpeed) *Time.deltaTime);
     }
 
     private void Rotate(Vector2 direction)
@@ -98,6 +94,6 @@ public class EnemyBaseState : IState
         if (stateMachine.Target.IsDead) return false; 
 
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-        return enemyDistanceSqr <= 1.5 * 1.5;
+        return enemyDistanceSqr <= 0.7f* 0.7f;
     }
 }

@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Collider2D thisCollider;
     private int damage;
-    private float knockback;
 
     private void OnEnable()
     {
@@ -21,19 +16,11 @@ public class Weapon : MonoBehaviour
         if(collision.TryGetComponent<Health>(out Health health))
         { 
             health.TakeDamage(damage);
-            Debug.Log($"µ¥¹ÌÁö : {damage} "); 
-        }
-
-        if (collision.TryGetComponent(out ForceReceiver forceReceiver))
-        {
-            Vector3 direction = (collision.transform.position - thisCollider.transform.position).normalized;
-            forceReceiver.AddForce(direction * knockback);
         }
     }
 
-    public void SetAttack(int damage, float knockback)
+    public void SetAttack(int damage)
     {
         this.damage = damage;
-        this.knockback = knockback;
     }
 }
