@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
@@ -20,7 +17,7 @@ public class EnemyPool : MonoBehaviour
 
     public GameObject Get()
     {
-        int index = UnityEngine.Random.Range(0, prefabs.Count());
+        int index = Random.Range(0, prefabs.Count());
         GameObject select = null;
 
         foreach (GameObject item in pools[index])

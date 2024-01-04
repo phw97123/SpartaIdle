@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class Player : MonoBehaviour
 
     public Weapon weapon;
 
+    public GameObject closestEnemy = null;
+
+    public List<GameObject> targetList;
+
     public Health Health { get; private set; }
 
     private void Awake()
@@ -26,7 +32,7 @@ public class Player : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
         ForceReceiver = GetComponent<ForceReceiver>();
 
-        Health = GetComponent<Health>();    
+        Health = GetComponent<Health>();
         stateMachine = new PlayerStateMachine(this);
     }
 
@@ -46,5 +52,17 @@ public class Player : MonoBehaviour
     {
         Animator.SetTrigger("Die");
         enabled = false;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            if (closestEnemy == null)
+            {
+                closestEnemy = collision.gameObject;
+                stateMachine.SetTargetEnemy(closestEnemy);
+            }
+        }
     }
 }

@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7427189006523695641}
   - component: {fileID: 8250893339405936297}
   - component: {fileID: 6287704417535873554}
+  - component: {fileID: -4012659752374392321}
   m_Layer: 6
   m_Name: Orc
   m_TagString: Enemy
@@ -371,6 +372,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 200
+--- !u!210 &-4012659752374392321
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538802702350887504}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 51
+  m_SortAtRoot: 0
 --- !u!1 &2578502965810239340
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
+using System.Collections;
 using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Enemy : MonoBehaviour
 {
@@ -34,7 +36,19 @@ public class Enemy : MonoBehaviour
     public void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-        Health.OnDie += OnDie; 
+        Health.OnDie += OnDie;
+    }
+
+    public void Init()
+    {
+        Health.Init();
+        stateMachine.ChangeState(stateMachine.IdleState);
+        int childCound = transform.childCount;
+        for (int i = 0; i < childCound; i++)
+        {
+            Transform child = transform.GetChild(i);
+            child.gameObject.SetActive(true);
+        }
     }
 
     private void Update()
@@ -45,8 +59,21 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
+        int childCound = transform.childCount;
+        for (int i = 0; i < childCound; i++)
+        {
+            Transform child = transform.GetChild(i);
+            child.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(DeadAnimation()); 
+    }
+
+    IEnumerator DeadAnimation()
+    {
         Animator.SetTrigger("Die");
-        Health.OnDie -= OnDie;
+        float curAnimationTime = Animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
     }
 }

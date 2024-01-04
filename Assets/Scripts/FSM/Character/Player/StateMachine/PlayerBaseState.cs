@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBaseState : IState
@@ -21,12 +22,23 @@ public class PlayerBaseState : IState
     }
 
     public virtual void Update()
-    { 
+    {
 
-        stateMachine.Target = GetClosestEnemy();
+        if (stateMachine.Target != null)
+        {
+            if (stateMachine.Target.IsDead)
+            {
+                stateMachine.Target = GetClosestEnemy();
+            }
+        }
+        else
+            stateMachine.ChangeState(stateMachine.IdleState);
 
-        if (stateMachine.Target == null)
-            stateMachine.ChangeState(stateMachine.IdleState); 
+        if (IsInAttackRange())
+        {
+            stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
     }
 
     protected void StartAnimation(int animationHash)
@@ -41,6 +53,8 @@ public class PlayerBaseState : IState
 
     public void Move()
     {
+        if(stateMachine.Target == null) { return; }
+
         Vector2 movementDirection = GetMovementDirection();
         Rotate(movementDirection);
         Move(movementDirection);
@@ -51,10 +65,9 @@ public class PlayerBaseState : IState
         float movementSpeed = GetMovementSpeed();
         stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position 
             + (direction * movementSpeed) * Time.deltaTime);
-
     }
 
-    private void Rotate(Vector2 direction)
+    public void Rotate(Vector2 direction)
     {
         float angle = direction.x;
         angle = (angle < 0) ? 0 : 180;
@@ -98,13 +111,13 @@ public class PlayerBaseState : IState
         if (stateMachine.Target.IsDead) return false;
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= 0.5f * 0.5f;
+        return playerDistanceSqr <= 0.8f * 0.8f;
     }
 
     public Health GetClosestEnemy()
     {
         Vector2 currentPosition = stateMachine.Player.transform.position;
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy"); 
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (targets.Length == 0)
         {
@@ -118,13 +131,12 @@ public class PlayerBaseState : IState
         {
             float distance = Vector2.Distance(currentPosition, target.transform.position);
 
-            if (distance < closestDistance)
+            if (distance <= closestDistance)
             {
                 closestDistance = distance;
                 closestEnemy = target;
             }
         }
-
         return closestEnemy.GetComponent<Health>();
     }
 }

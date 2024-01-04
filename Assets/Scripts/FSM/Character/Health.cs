@@ -14,6 +14,11 @@ public class Health : MonoBehaviour
         health = maxHealth; 
     }
 
+    public void Init()
+    {
+        health = maxHealth; 
+    }
+
     public void TakeDamage(int damage)
     {
         if (health == 0) return;
@@ -21,7 +26,5 @@ public class Health : MonoBehaviour
 
         if (health == 0)
             OnDie?.Invoke();
-
-        // Debug.Log($"{this.name}Health : {health}");
     }
 }

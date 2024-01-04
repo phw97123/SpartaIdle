@@ -4,12 +4,12 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
-    public Health Target;
+    public Health Target { get; set; }
     public PlayerIdleState IdleState { get; }
     public PlayerChasingState ChasingState { get; }
     public PlayerAttackState AttackState { get; }
 
-    public float MovementSpeed { get; private set; } = 5f; 
+    public float MovementSpeed { get; private set; }
 
     public PlayerStateMachine(Player player)
     {
@@ -19,5 +19,12 @@ public class PlayerStateMachine : StateMachine
         IdleState = new PlayerIdleState(this); 
         ChasingState = new PlayerChasingState(this);
         AttackState = new PlayerAttackState(this);
+
+        MovementSpeed = player.Data.BaseSpeed; 
+    }
+
+    public void SetTargetEnemy(GameObject target)
+    {
+       Target = target.GetComponent<Health>();
     }
 }

@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 6742351113822913296}
   - component: {fileID: 5044771251429769919}
   - component: {fileID: 451525739556400665}
+  - component: {fileID: 4451074462870578182}
   m_Layer: 6
   m_Name: Human
   m_TagString: Enemy
@@ -287,6 +288,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+--- !u!210 &4451074462870578182
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941655247541850232}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 51
+  m_SortAtRoot: 0
 --- !u!1 &2062131736792572105
 GameObject:
   m_ObjectHideFlags: 0

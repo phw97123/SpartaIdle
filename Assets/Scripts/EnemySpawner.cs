@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] Transform spawnPostion; 
+    [SerializeField] Transform[] spawnPostions; 
     public EnemyPool enemyPool;
     private WaitForSeconds spawnInterval = new WaitForSeconds(1f);
     private int maxEnemies = 30;
+
+    public List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
     {
@@ -17,15 +18,15 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while(true)
+        while(GameObject.FindGameObjectsWithTag("Enemy").Length < maxEnemies)
         {
-            if(GameObject.FindGameObjectsWithTag("Enemy").Length < maxEnemies)
-            {
-                GameObject enemy = enemyPool.Get();
-                Transform spawnPosition = spawnPostion; 
-                enemy.transform.position = spawnPosition.position;
-                enemy.SetActive(true); 
-            }
+            GameObject enemy = enemyPool.Get();
+            int randomPosition = Random.Range(0,spawnPostions.Length );
+            Transform spawnPosition = spawnPostions[randomPosition];
+            enemy.transform.position = spawnPosition.position;
+            enemy.GetComponent<Enemy>().Init(); 
+            enemy.SetActive(true);
+            enemies.Add(enemy);
             yield return spawnInterval; 
         }
     }

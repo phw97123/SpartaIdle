@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     {
         if (collision == thisCollider ) return;
 
-        if(collision.TryGetComponent<Health>(out Health health))
+        if (collision.TryGetComponent<Health>(out Health health))
         { 
             health.TakeDamage(damage);
         }
