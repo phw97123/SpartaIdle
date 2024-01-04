@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] Transform[] spawnPostions; 
     public EnemyPool enemyPool;
-    private WaitForSeconds spawnInterval = new WaitForSeconds(1f);
+    private WaitForSeconds spawnInterval = new WaitForSeconds(2f);
     private int maxEnemies = 30;
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while(GameObject.FindGameObjectsWithTag("Enemy").Length < maxEnemies)
+        while(enemies.Count < maxEnemies)
         {
             GameObject enemy = enemyPool.Get();
             int randomPosition = Random.Range(0,spawnPostions.Length );

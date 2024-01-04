@@ -23,7 +23,11 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.Update();
 
-        if (stateMachine.Target.IsDead)
+        if (stateMachine.Target == null)
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+        }
+        else if (stateMachine.Target.IsDead)
         {
             stateMachine.Target = GetClosestEnemy();
             return;

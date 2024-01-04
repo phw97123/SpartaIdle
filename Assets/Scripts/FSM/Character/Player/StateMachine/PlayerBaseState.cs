@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using System.Threading;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerBaseState : IState
 {
@@ -29,7 +23,6 @@ public class PlayerBaseState : IState
     public virtual void Update()
     {
         Move();
-
         if (stateMachine.Target != null)
         {
             if (stateMachine.Target.IsDead)
@@ -42,8 +35,9 @@ public class PlayerBaseState : IState
 
         if (IsInAttackRange())
         {
+            Rotate(GetMovementDirection());
+            stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
             stateMachine.ChangeState(stateMachine.AttackState);
-            return;
         }
     }
 
@@ -59,17 +53,17 @@ public class PlayerBaseState : IState
 
     public void Move()
     {
-        if (stateMachine.Target == null) { return; }
+        if (stateMachine.Target == null) return;
+        if (stateMachine.Target.IsDead) return;
 
         Vector2 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
         float targetDistance = Vector2.Distance(stateMachine.Target.transform.position, stateMachine.Player.transform.position);
 
-        float teleportDistance = 1f;
-
+        float teleportDistance = 1.7f;
         if (teleportDistance > targetDistance)
         {
-            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed *1.5f;
+            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * 2f;
         }
         else
         {
@@ -86,9 +80,9 @@ public class PlayerBaseState : IState
         stateMachine.Player.transform.rotation = rotation;
     }
 
-    private Vector2 GetMovementDirection()
+    private Vector3 GetMovementDirection()
     {
-        return (stateMachine.Target.transform.position - stateMachine.Player.transform.position);
+        return (stateMachine.Target.transform.position - stateMachine.Player.transform.position).normalized;
     }
 
     private float GetMovementSpeed()
@@ -102,8 +96,9 @@ public class PlayerBaseState : IState
         if (!stateMachine.Target) return false;
         if (stateMachine.Target.IsDead) return false;
 
+
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= 1f * 1f;
+        return playerDistanceSqr <= 0.7f * 0.7f;
     }
 
     public Health GetClosestEnemy()
