@@ -174,6 +174,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &471001386 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8876779737569139403, guid: c68200e5e275e49cbb45d811e0c69bcd, type: 3}
+  m_PrefabInstance: {fileID: 1275656199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &574502308
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +822,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  character: {fileID: 2068808307}
+  shadowSprite: {fileID: 471001386}
 --- !u!1 &2090465523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 237022175316835901, guid: c68200e5e275e49cbb45d811e0c69bcd, type: 3}

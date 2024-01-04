@@ -209,7 +209,7 @@ Transform:
   - {fileID: 8779629358352732587}
   - {fileID: 2995047387550187567}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &796283890644829654
 SpriteRenderer:
@@ -372,6 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 200
+  character: {fileID: 2538802702350887504}
+  shadowSprite: {fileID: 5373051198957193939}
 --- !u!210 &-4012659752374392321
 SortingGroup:
   m_ObjectHideFlags: 0
