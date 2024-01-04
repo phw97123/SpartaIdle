@@ -1,5 +1,10 @@
 using System.Collections.Generic;
+using System.Threading;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerBaseState : IState
 {
@@ -23,6 +28,7 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
+        Move();
 
         if (stateMachine.Target != null)
         {
@@ -53,31 +59,36 @@ public class PlayerBaseState : IState
 
     public void Move()
     {
-        if(stateMachine.Target == null) { return; }
+        if (stateMachine.Target == null) { return; }
 
         Vector2 movementDirection = GetMovementDirection();
-        Rotate(movementDirection);
-        Move(movementDirection);
-    }
-
-    private void Move(Vector2 direction)
-    {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Player.CharacterRigidbody2D.MovePosition(stateMachine.Player.CharacterRigidbody2D.position 
-            + (direction * movementSpeed) * Time.deltaTime);
+        float targetDistance = Vector2.Distance(stateMachine.Target.transform.position, stateMachine.Player.transform.position);
+
+        float teleportDistance = 1f;
+
+        if (teleportDistance > targetDistance)
+        {
+            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed *1.5f;
+        }
+        else
+        {
+            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed;
+        }
+        Rotate(movementDirection);
     }
 
     public void Rotate(Vector2 direction)
     {
         float angle = direction.x;
-        angle = (angle < 0) ? 0 : 180;
+        angle = (angle <= 0) ? 0 : 180;
         Quaternion rotation = Quaternion.Euler(0, angle, 0);
         stateMachine.Player.transform.rotation = rotation;
     }
 
     private Vector2 GetMovementDirection()
     {
-        return (stateMachine.Target.transform.position - stateMachine.Player.transform.position).normalized;
+        return (stateMachine.Target.transform.position - stateMachine.Player.transform.position);
     }
 
     private float GetMovementSpeed()
@@ -86,32 +97,13 @@ public class PlayerBaseState : IState
         return movementSpeed;
     }
 
-    protected float GetNormalizedTime(Animator animator, string tag)
-    {
-        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
-
-        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
-        {
-            return nextInfo.normalizedTime;
-        }
-        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
-        {
-            return currentInfo.normalizedTime;
-        }
-        else
-        {
-            return 0f;
-        }
-    }
-
     protected bool IsInAttackRange()
     {
-        if (!stateMachine.Target) return false; 
+        if (!stateMachine.Target) return false;
         if (stateMachine.Target.IsDead) return false;
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= 0.8f * 0.8f;
+        return playerDistanceSqr <= 1f * 1f;
     }
 
     public Health GetClosestEnemy()

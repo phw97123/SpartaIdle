@@ -26,14 +26,14 @@ public class PlayerAttackState : PlayerBaseState
         if (stateMachine.Target.IsDead)
         {
             stateMachine.Target = GetClosestEnemy();
+            return;
         }
-        else if (!IsInAttackRange())
+
+        if (!IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.ChasingState);
         }
-        else
+        else if(!stateMachine.Target)
             stateMachine.ChangeState(stateMachine.IdleState);
-
-       
     }
 }

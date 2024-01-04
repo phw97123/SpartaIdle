@@ -19,6 +19,5 @@ public class PlayerChasingState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-        Move();
     }
 }
