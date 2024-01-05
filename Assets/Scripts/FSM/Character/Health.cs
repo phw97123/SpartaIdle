@@ -48,7 +48,6 @@ public class Health : MonoBehaviour
         if (damage > 0)
         {
             StartCoroutine(TakeDamageColor());
-            Debug.Log(damage);
         }
 
         if (health == 0)

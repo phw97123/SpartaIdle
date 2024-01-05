@@ -11,10 +11,11 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == thisCollider ) return;
+        if (collision == thisCollider) return;
+        if(thisCollider.CompareTag(collision.tag)) return;
 
         if (collision.TryGetComponent<Health>(out Health health))
-        { 
+        {
             health.TakeDamage(damage);
         }
     }

@@ -58,20 +58,20 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        int childCound = transform.childCount;
-        for (int i = 0; i < childCound; i++)
-        {
-            Transform child = transform.GetChild(i);
-            child.gameObject.SetActive(false);
-        }
-
         StartCoroutine(DeadAnimation()); 
     }
 
     IEnumerator DeadAnimation()
     {
         Animator.SetTrigger("Die");
+        int childCound = transform.childCount;
+
         float curAnimationTime = Animator.GetCurrentAnimatorStateInfo(0).length;
+        for (int i = 0; i < childCound; i++)
+        {
+            Transform child = transform.GetChild(i);
+            child.gameObject.SetActive(false);
+        }
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
     }
