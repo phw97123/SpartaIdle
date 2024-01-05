@@ -16,7 +16,7 @@ public class SetDamage : MonoBehaviour
         weaponCollider.GetComponent<Collider2D>().enabled = true;
     }
 
-    public void DeActiveCollider()
+    public void StopAttackNotify()
     {
         weaponCollider.GetComponent<Collider2D>().enabled = false;
     }
