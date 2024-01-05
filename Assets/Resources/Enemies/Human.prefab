@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 5044771251429769919}
   - component: {fileID: 451525739556400665}
   - component: {fileID: 4451074462870578182}
+  - component: {fileID: 7761549958227295549}
   m_Layer: 6
   m_Name: Human
   m_TagString: Enemy
@@ -302,6 +303,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 51
   m_SortAtRoot: 0
+--- !u!114 &7761549958227295549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941655247541850232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eecb72c947f734b88f5dc2e6f84ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 3832826365516366057}
 --- !u!1 &2062131736792572105
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +610,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3852442971385266861}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -621,8 +635,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.1, y: 0.5}
+  m_Offset: {x: -0.0048230174, y: 0.12677689}
+  m_Size: {x: 0.10413418, y: 0.24644624}
   m_Direction: 0
 --- !u!114 &1557036979612112110
 MonoBehaviour:
@@ -636,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e84b242271c17243a66cafcac66b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisCollider: {fileID: 3832826365516366057}
+  thisCollider: {fileID: 5044771251429769919}
 --- !u!1 &3905564834838133257
 GameObject:
   m_ObjectHideFlags: 0

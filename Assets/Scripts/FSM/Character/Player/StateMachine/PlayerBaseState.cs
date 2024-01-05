@@ -60,10 +60,10 @@ public class PlayerBaseState : IState
         float movementSpeed = GetMovementSpeed();
         float targetDistance = Vector2.Distance(stateMachine.Target.transform.position, stateMachine.Player.transform.position);
 
-        float teleportDistance = 1.7f;
+        float teleportDistance =3f;
         if (teleportDistance > targetDistance)
         {
-            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * 2f;
+            stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * 3f;
         }
         else
         {
@@ -96,9 +96,10 @@ public class PlayerBaseState : IState
         if (!stateMachine.Target) return false;
         if (stateMachine.Target.IsDead) return false;
 
+        //float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+        //return playerDistanceSqr <= 0.7f * 0.7f;
 
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= 0.7f * 0.7f;
+        return stateMachine.Player.IsAttackRange; 
     }
 
     public Health GetClosestEnemy()

@@ -1,8 +1,6 @@
+using System;
 using System.Collections;
-using Unity.Properties;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,7 +15,8 @@ public class Enemy : MonoBehaviour
 
     public Health Health { get;  set; } 
 
-    public Weapon weapon; 
+    public Weapon weapon;
+
 
     private void Awake()
     {

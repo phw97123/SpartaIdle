@@ -25,6 +25,6 @@ public class PlayerStateMachine : StateMachine
 
     public void SetTargetEnemy(GameObject target)
     {
-       Target = target.GetComponent<Health>();
+        Target = target.GetComponent<Health>();
     }
 }

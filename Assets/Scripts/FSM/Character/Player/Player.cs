@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
     public List<GameObject> targetList;
 
     public Health Health { get; private set; }
+
+    public bool IsAttackRange {  get;  set; }
 
     private void Awake()
     {

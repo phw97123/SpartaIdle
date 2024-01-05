@@ -14,16 +14,25 @@ public class Health : MonoBehaviour
     [Header("ChangeColor")]
     [SerializeField] private GameObject character;
     [SerializeField] private SpriteRenderer shadowSprite;
+
     private Color damageColor;
 
     private SpriteRenderer[] spriteRenderers;
+    private Color[] prevColor;
+
     private WaitForSeconds interval = new WaitForSeconds(.3f);
 
     private void Start()
     {
         health = maxHealth;
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        prevColor = new Color[spriteRenderers.Length];
         damageColor = new Color32(150, 0, 24, 255);
+
+        for(int i = 0;i<spriteRenderers.Length;i++)
+        {
+            prevColor[i] = spriteRenderers[i].color; 
+        }
     }
 
     public void Init()
@@ -39,6 +48,7 @@ public class Health : MonoBehaviour
         if (damage > 0)
         {
             StartCoroutine(TakeDamageColor());
+            Debug.Log(damage);
         }
 
         if (health == 0)
@@ -47,18 +57,18 @@ public class Health : MonoBehaviour
 
     private IEnumerator TakeDamageColor()
     {
-        SetColor(damageColor);
-        yield return interval;
-        SetColor(Color.white);
-    }
-
-    private void SetColor(Color color)
-    {
         foreach (var renderer in spriteRenderers)
         {
-            if (renderer == shadowSprite) continue;
+            if (renderer == shadowSprite)
+                continue;
+            renderer.color = damageColor;
+        }
 
-            renderer.color = color;
+        yield return interval;
+
+        for(int i = 0;i<spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = prevColor[i];
         }
     }
 }

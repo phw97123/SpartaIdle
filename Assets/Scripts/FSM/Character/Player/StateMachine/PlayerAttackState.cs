@@ -30,7 +30,7 @@ public class PlayerAttackState : PlayerBaseState
         else if (stateMachine.Target.IsDead)
         {
             stateMachine.Target = GetClosestEnemy();
-            return;
+            return; 
         }
 
         if (!IsInAttackRange())

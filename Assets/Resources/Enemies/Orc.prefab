@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 8250893339405936297}
   - component: {fileID: 6287704417535873554}
   - component: {fileID: -4012659752374392321}
+  - component: {fileID: 7550857040608673611}
   m_Layer: 6
   m_Name: Orc
   m_TagString: Enemy
@@ -386,6 +387,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 51
   m_SortAtRoot: 0
+--- !u!114 &7550857040608673611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538802702350887504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eecb72c947f734b88f5dc2e6f84ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 6438384314085344400}
 --- !u!1 &2578502965810239340
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e84b242271c17243a66cafcac66b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisCollider: {fileID: 6438384314085344400}
+  thisCollider: {fileID: 8250893339405936297}
 --- !u!70 &6438384314085344400
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -601,8 +615,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0024129392, y: 0.013269997}
-  m_Size: {x: 0.23313951, y: 0.38590127}
+  m_Offset: {x: -0.0024129392, y: 0.095324874}
+  m_Size: {x: 0.23313951, y: 0.24448743}
   m_Direction: 0
 --- !u!1 &7605940615848961169
 GameObject:

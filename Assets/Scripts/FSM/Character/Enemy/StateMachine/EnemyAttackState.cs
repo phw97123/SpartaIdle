@@ -10,6 +10,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.weapon.SetAttack(1); 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
@@ -29,12 +30,10 @@ public class EnemyAttackState : EnemyBaseState
         if (!IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.ChasingState);
-            return;
         }
         else if (stateMachine.Target == null)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
-            return;
         }
     }
 }
