@@ -22,6 +22,8 @@ public class Health : MonoBehaviour
 
     private WaitForSeconds interval = new WaitForSeconds(.3f);
 
+    [SerializeField] ParticleSystem hitEffect;
+
     private void Start()
     {
         health = maxHealth;
@@ -29,9 +31,9 @@ public class Health : MonoBehaviour
         prevColor = new Color[spriteRenderers.Length];
         damageColor = new Color32(150, 0, 24, 255);
 
-        for(int i = 0;i<spriteRenderers.Length;i++)
+        for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            prevColor[i] = spriteRenderers[i].color; 
+            prevColor[i] = spriteRenderers[i].color;
         }
     }
 
@@ -48,6 +50,10 @@ public class Health : MonoBehaviour
         if (damage > 0)
         {
             StartCoroutine(TakeDamageColor());
+            if (hitEffect != null)
+            {
+                hitEffect.Play();
+            }
         }
 
         if (health == 0)
@@ -65,7 +71,7 @@ public class Health : MonoBehaviour
 
         yield return interval;
 
-        for(int i = 0;i<spriteRenderers.Length; i++)
+        for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = prevColor[i];
         }

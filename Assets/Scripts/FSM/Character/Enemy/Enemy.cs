@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Animator Animator { get; private set; }
 
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
+    private Collider2D collider2d; 
 
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
@@ -19,6 +20,8 @@ public class Enemy : MonoBehaviour
 
     public bool IsAttackRange { get; set; }
 
+    WaitForSeconds deadTime; 
+
     private void Awake()
     {
         AnimationData = new CharacterAnimationData();
@@ -26,10 +29,13 @@ public class Enemy : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
+        collider2d = GetComponent<Collider2D>();
 
         stateMachine = new EnemyStateMachine(this);
 
         Health = GetComponent<Health>();
+
+        deadTime = new WaitForSeconds(.8f);
     }
 
     public void Start()
@@ -58,7 +64,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        StartCoroutine(DeadAnimation()); 
+        StartCoroutine(DeadAnimation());
     }
 
     private IEnumerator DeadAnimation()
@@ -66,13 +72,12 @@ public class Enemy : MonoBehaviour
         Animator.SetTrigger("Die");
         int childCound = transform.childCount;
 
-        float curAnimationTime = Animator.GetCurrentAnimatorStateInfo(0).length;
         for (int i = 0; i < childCound; i++)
         {
             Transform child = transform.GetChild(i);
             child.gameObject.SetActive(false);
         }
-        yield return new WaitForSeconds(curAnimationTime);
+        yield return deadTime;
         gameObject.SetActive(false);
     }
 

@@ -27,10 +27,10 @@ public class PlayerBaseState : IState
             if (stateMachine.Target.IsDead)
             {
                 stateMachine.Target = GetClosestEnemy();
+                stateMachine.ChangeState(stateMachine.ChasingState);
             }
             else if (IsInAttackRange() && !stateMachine.Target.IsDead)
             {
-                Rotate(GetMovementDirection()); 
                 stateMachine.ChangeState(stateMachine.AttackState);
             }
         }
@@ -135,7 +135,7 @@ public class PlayerBaseState : IState
 
         Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
 
-        Rotate(direction); 
+       // Rotate(direction); 
         return closestEnemy?.GetComponent<Health>();
     }
 }

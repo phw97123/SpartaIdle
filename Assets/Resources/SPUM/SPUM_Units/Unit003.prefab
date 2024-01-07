@@ -2969,6 +2969,7 @@ MonoBehaviour:
   maxHealth: 100
   character: {fileID: 6671005101368022219}
   shadowSprite: {fileID: 8876779737569139403}
+  hitEffect: {fileID: 0}
 --- !u!1 &6783851603784488074
 GameObject:
   m_ObjectHideFlags: 0
