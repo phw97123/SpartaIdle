@@ -10,7 +10,7 @@ public class EnemyStateMachine : StateMachine
 
 
     public Vector2 MovementInput { get; set; }
-    public float MovementSpeed { get; private set; } = 3f;
+    public float MovementSpeed { get; private set; } = 1f;
 
     public EnemyStateMachine(Enemy enemy)
     {

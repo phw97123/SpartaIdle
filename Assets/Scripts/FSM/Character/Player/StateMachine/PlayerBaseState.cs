@@ -30,7 +30,7 @@ public class PlayerBaseState : IState
             }
             else if (IsInAttackRange() && !stateMachine.Target.IsDead)
             {
-                // Rotate(GetMovementDirection()); 
+                Rotate(GetMovementDirection()); 
                 stateMachine.ChangeState(stateMachine.AttackState);
             }
         }
@@ -100,7 +100,6 @@ public class PlayerBaseState : IState
         if (!stateMachine.Target) return false;
         if (stateMachine.Target.IsDead) return false;
 
-
         return stateMachine.Player.IsAttackRange;
     }
 
@@ -131,6 +130,8 @@ public class PlayerBaseState : IState
                 closestEnemy = target;
             }
         }
+
+        if(closestEnemy == null) return null;
 
         Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
 

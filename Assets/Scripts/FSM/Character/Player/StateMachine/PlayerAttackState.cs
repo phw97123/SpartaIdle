@@ -4,6 +4,7 @@ public class PlayerAttackState : PlayerBaseState
 {
     public PlayerAttackState(PlayerStateMachine palyerStateMachine) : base(palyerStateMachine)
     {
+
     }
 
     public override void Enter()
@@ -28,8 +29,11 @@ public class PlayerAttackState : PlayerBaseState
         {
             if (!IsInAttackRange())
             {
-                stateMachine.Target = GetClosestEnemy();
-                stateMachine.ChangeState(stateMachine.ChasingState);
+                if (stateMachine.Player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                {
+                    stateMachine.Target = GetClosestEnemy();
+                    stateMachine.ChangeState(stateMachine.ChasingState);
+                }
             }
         }
         else

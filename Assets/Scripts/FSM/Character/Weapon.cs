@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -16,7 +15,7 @@ public class Weapon : MonoBehaviour
         if (collision.TryGetComponent<Health>(out Health health))
         {
             health.TakeDamage(damage);
-            if (damage > 0)
+            if (damage > 0 && knockbackForce >0)
                 Knockback(collision.transform);
         }
     }
@@ -34,7 +33,7 @@ public class Weapon : MonoBehaviour
         while (knockbackDuration > timer)
         {
             timer += Time.deltaTime; 
-            Vector2 direction = (obj.transform.position - this.transform.position).normalized;
+            Vector2 direction = (obj.transform.position - gameObject.transform.position).normalized;
             obj.GetComponent<Rigidbody2D>().AddForce(direction * knockbackForce);
         }
     }

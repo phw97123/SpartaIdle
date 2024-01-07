@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
 
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
-    public ForceReceiver ForceReceiver { get; private set; }
 
     private EnemyStateMachine stateMachine;
 
@@ -27,7 +26,6 @@ public class Enemy : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
-        ForceReceiver = GetComponent<ForceReceiver>();
 
         stateMachine = new EnemyStateMachine(this);
 
@@ -74,7 +72,13 @@ public class Enemy : MonoBehaviour
             Transform child = transform.GetChild(i);
             child.gameObject.SetActive(false);
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(curAnimationTime);
         gameObject.SetActive(false);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 }

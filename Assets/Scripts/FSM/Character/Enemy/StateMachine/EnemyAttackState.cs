@@ -10,6 +10,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.CharacterRigidbody2D.velocity = Vector3.zero;
         stateMachine.Enemy.weapon.SetAttack(1, 0, 0); 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
@@ -25,8 +26,6 @@ public class EnemyAttackState : EnemyBaseState
     {
         base.Update();
 
-        ForceMove(); 
-       
         if (!IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.ChasingState);

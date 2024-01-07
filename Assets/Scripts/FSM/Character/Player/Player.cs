@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 
     [field: SerializeField] public PlayerSO Data { get; private set; }
     public Animator Animator { get; private set; }
-    public ForceReceiver ForceReceiver { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
     public PlayerStateMachine stateMachine;
@@ -31,7 +30,6 @@ public class Player : MonoBehaviour
 
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
-        ForceReceiver = GetComponent<ForceReceiver>();
 
         Health = GetComponent<Health>();
         stateMachine = new PlayerStateMachine(this);

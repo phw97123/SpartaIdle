@@ -163,7 +163,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EnemyAnimationController
+  m_Name: OrcController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Idle
@@ -394,7 +394,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 415e70a7bf4d5da418edfcbc48df58f8, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4a9dcdf570074294ca76dc04ca33806f, type: 2}
   m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 

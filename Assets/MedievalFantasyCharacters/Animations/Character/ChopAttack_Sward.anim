@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ChopAttack
+  m_Name: ChopAttack_Sward
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -368,7 +368,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -7209587039614130495, guid: 995e670ef7e29b84587984d990ee2f74, type: 3}
+      value: {fileID: 776136188158623729, guid: 41472c987a1935e499a2719fe4f07224, type: 3}
     attribute: m_Sprite
     path: human_hand_0/polearm_8
     classID: 212
@@ -506,7 +506,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -7209587039614130495, guid: 995e670ef7e29b84587984d990ee2f74, type: 3}
+    - {fileID: 776136188158623729, guid: 41472c987a1935e499a2719fe4f07224, type: 3}
     - {fileID: 5622246941517542749, guid: e7463a00251288c49b2417d9ed3e9a86, type: 3}
     - {fileID: -515409274561003783, guid: e7463a00251288c49b2417d9ed3e9a86, type: 3}
     - {fileID: -4271068193015428061, guid: e7463a00251288c49b2417d9ed3e9a86, type: 3}
