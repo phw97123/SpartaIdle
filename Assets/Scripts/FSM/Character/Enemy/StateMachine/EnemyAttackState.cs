@@ -10,22 +10,22 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
-        stateMachine.Enemy.weapon.SetAttack(1); 
+        stateMachine.Enemy.weapon.SetAttack(1, 0, 0); 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
-        StartAnimation(stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
         StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
-        StopAnimation(stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
     }
 
     public override void Update()
     {
         base.Update();
+
+        ForceMove(); 
        
         if (!IsInAttackRange())
         {

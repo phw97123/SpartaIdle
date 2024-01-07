@@ -11,17 +11,18 @@ public class Player : MonoBehaviour
     public ForceReceiver ForceReceiver { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
-    private PlayerStateMachine stateMachine;
+    public PlayerStateMachine stateMachine;
 
     public Weapon weapon;
 
     public GameObject closestEnemy = null;
 
-    public List<GameObject> targetList;
-
     public Health Health { get; private set; }
 
     public bool IsAttackRange {  get;  set; }
+    public bool isAttack; 
+
+    public Health target; 
 
     private void Awake()
     {
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
 
         Health = GetComponent<Health>();
         stateMachine = new PlayerStateMachine(this);
+
+        target = stateMachine.Target; 
     }
 
     private void Start()

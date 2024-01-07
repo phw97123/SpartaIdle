@@ -22,22 +22,23 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        Move();
         if (stateMachine.Target != null)
         {
             if (stateMachine.Target.IsDead)
             {
                 stateMachine.Target = GetClosestEnemy();
             }
+            else if (IsInAttackRange() && !stateMachine.Target.IsDead)
+            {
+                // Rotate(GetMovementDirection()); 
+                stateMachine.ChangeState(stateMachine.AttackState);
+            }
         }
         else
-            stateMachine.ChangeState(stateMachine.IdleState);
-
-        if (IsInAttackRange())
         {
-            Rotate(GetMovementDirection());
-            stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.Target = GetClosestEnemy();
+            if(stateMachine.Target == null) 
+            stateMachine.ChangeState(stateMachine.IdleState);
         }
     }
 
@@ -56,11 +57,12 @@ public class PlayerBaseState : IState
         if (stateMachine.Target == null) return;
         if (stateMachine.Target.IsDead) return;
 
+        stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
         Vector2 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
         float targetDistance = Vector2.Distance(stateMachine.Target.transform.position, stateMachine.Player.transform.position);
 
-        float teleportDistance =3f;
+        float teleportDistance = 3f;
         if (teleportDistance > targetDistance)
         {
             stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * 3f;
@@ -71,6 +73,8 @@ public class PlayerBaseState : IState
         }
         Rotate(movementDirection);
     }
+
+
 
     public void Rotate(Vector2 direction)
     {
@@ -96,10 +100,8 @@ public class PlayerBaseState : IState
         if (!stateMachine.Target) return false;
         if (stateMachine.Target.IsDead) return false;
 
-        //float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
-        //return playerDistanceSqr <= 0.7f * 0.7f;
 
-        return stateMachine.Player.IsAttackRange; 
+        return stateMachine.Player.IsAttackRange;
     }
 
     public Health GetClosestEnemy()
@@ -117,14 +119,22 @@ public class PlayerBaseState : IState
 
         foreach (GameObject target in targets)
         {
+            Health enemyHealth = target.GetComponent<Health>();
+
+            if (enemyHealth.IsDead) continue;
+
             float distance = Vector2.Distance(currentPosition, target.transform.position);
 
-            if (distance <= closestDistance)
+            if (distance < closestDistance)
             {
                 closestDistance = distance;
                 closestEnemy = target;
             }
         }
-        return closestEnemy.GetComponent<Health>();
+
+        Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
+
+        Rotate(direction); 
+        return closestEnemy?.GetComponent<Health>();
     }
 }

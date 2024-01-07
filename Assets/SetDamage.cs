@@ -1,23 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SetDamage : MonoBehaviour
 {
     [SerializeField] Collider2D weaponCollider;
 
-    private void Start()
-    {
-        weaponCollider.enabled = false;
-    }
-
     public void StartAttackNotify()
     {
-        weaponCollider.GetComponent<Collider2D>().enabled = true;
+        weaponCollider.enabled = true;
     }
 
     public void StopAttackNotify()
     {
-        weaponCollider.GetComponent<Collider2D>().enabled = false;
+        weaponCollider.enabled = false;
     }
 }

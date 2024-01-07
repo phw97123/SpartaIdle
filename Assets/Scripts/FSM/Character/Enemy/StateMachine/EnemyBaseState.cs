@@ -48,6 +48,11 @@ public class EnemyBaseState : IState
         stateMachine.Enemy.CharacterRigidbody2D.MovePosition(stateMachine.Enemy.CharacterRigidbody2D.position + (direction * movementSpeed) * Time.deltaTime);
     }
 
+    protected void ForceMove()
+    {
+        stateMachine.Enemy.CharacterRigidbody2D.velocity = stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime;
+    }
+
     private void Rotate(Vector2 direction)
     {
         float angle = direction.x;

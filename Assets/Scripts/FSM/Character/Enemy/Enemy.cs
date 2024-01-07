@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public Weapon weapon;
 
+    public bool IsAttackRange { get; set; }
 
     private void Awake()
     {
@@ -37,7 +38,6 @@ public class Enemy : MonoBehaviour
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
-        Health.OnHit += OnKnockback; 
     }
 
     public void Init()
@@ -76,23 +76,5 @@ public class Enemy : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
-    }
-
-    private void OnKnockback()
-    {
-        StartCoroutine(TakeKnockback(1.5f, 2f)); 
-    }
-
-    private IEnumerator TakeKnockback(float duration, float force)
-    {
-        float timer = 0f; 
-        while(timer<= duration)
-        {
-
-            timer += Time.deltaTime;
-            Vector2 direction = (stateMachine.Target.transform.position - transform.position).normalized;
-            CharacterRigidbody2D.AddForce(-direction*force,ForceMode2D.Force); 
-        }
-        yield return 0; 
     }
 }

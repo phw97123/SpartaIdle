@@ -8,7 +8,6 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     private int health;
     public event Action OnDie;
-    public event Action OnHit; 
 
     public bool IsDead => health == 0;
 
@@ -49,7 +48,6 @@ public class Health : MonoBehaviour
         if (damage > 0)
         {
             StartCoroutine(TakeDamageColor());
-            OnHit?.Invoke();
         }
 
         if (health == 0)

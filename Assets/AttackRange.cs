@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class AttackRange : MonoBehaviour
 {
-    [SerializeField] Player player;
+    [SerializeField] GameObject player;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Enemy"))
         {
-            player.IsAttackRange = true;
+            //player.IsAttackRange = true;
         }
     }
 
@@ -16,7 +16,7 @@ public class AttackRange : MonoBehaviour
     {
         if (collision.transform.CompareTag("Enemy"))
         {
-            player.IsAttackRange = false;
+            //player.IsAttackRange = false;
         }
     }
 }

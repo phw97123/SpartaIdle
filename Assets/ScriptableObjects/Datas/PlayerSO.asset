@@ -15,7 +15,5 @@ MonoBehaviour:
   <BaseSpeed>k__BackingField: 3
   <AttackRange>k__BackingField: 1.5
   <Damage>k__BackingField: 100
-  <Force>k__BackingField: 2
-  <Dealing_Start_TransitionTime>k__BackingField: 0.1
-  <Dealing_End_TransitionTime>k__BackingField: 0.15
-  <ForceTransitionTime>k__BackingField: 0.35
+  <Force>k__BackingField: 8
+  <KnckbackDuration>k__BackingField: 4

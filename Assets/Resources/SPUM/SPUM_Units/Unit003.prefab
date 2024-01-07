@@ -2890,7 +2890,8 @@ MonoBehaviour:
   <Data>k__BackingField: {fileID: 11400000, guid: 63bc4006f6ea75a45a9adb5ef6a679e0, type: 2}
   weapon: {fileID: 9038654125259893704}
   closestEnemy: {fileID: 0}
-  targetList: []
+  isAttack: 0
+  target: {fileID: 0}
 --- !u!70 &4484417543649129050
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3610,7 +3611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32399b98b2760040aea4c64d2955b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6310524259215995013}
+  player: {fileID: 0}
 --- !u!58 &2813174530048165859
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] Transform[] spawnPostions; 
     public EnemyPool enemyPool;
-    private WaitForSeconds spawnInterval = new WaitForSeconds(2f);
-    private int maxEnemies = 30;
+    private WaitForSeconds spawnInterval = new WaitForSeconds(.5f);
+    private int maxEnemies = 100;
 
     public List<GameObject> enemies = new List<GameObject>();
 

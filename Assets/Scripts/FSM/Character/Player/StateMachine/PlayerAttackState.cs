@@ -8,7 +8,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage);
+        stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
+        stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage, stateMachine.Player.Data.Force, stateMachine.Player.Data.KnckbackDuration);
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
     }
@@ -23,21 +24,17 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.Update();
 
-        if (stateMachine.Target == null)
+        if (stateMachine.Target)
+        {
+            if (!IsInAttackRange())
+            {
+                stateMachine.Target = GetClosestEnemy();
+                stateMachine.ChangeState(stateMachine.ChasingState);
+            }
+        }
+        else
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
-        else if (stateMachine.Target.IsDead)
-        {
-            stateMachine.Target = GetClosestEnemy();
-            return; 
-        }
-
-        if (!IsInAttackRange())
-        {
-            stateMachine.ChangeState(stateMachine.ChasingState);
-        }
-        else if(!stateMachine.Target)
-            stateMachine.ChangeState(stateMachine.IdleState);
     }
 }
