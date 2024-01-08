@@ -75,21 +75,26 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Fadeout());
     }
 
-    // TODO : 유틸 함수로 빼기 
     private IEnumerator Fadeout()
     {
         deadEffct.Play();
 
-        for (float f = 1.2f; f > 0f; f -= 0.05f) 
+        float fadeDuration = 0.8f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
         {
-            for(int i = 0; i< allSpriteRenderer.Length; i++)
+            for (int i = 0; i < allSpriteRenderer.Length; i++)
             {
                 Color c = spriteColors[i];
-                c.a = f;
-                allSpriteRenderer[i].color = c; 
+                c.a = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+                allSpriteRenderer[i].color = c;
             }
+
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
+
         gameObject.SetActive(false);
     }
 }
