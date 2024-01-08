@@ -33,7 +33,7 @@ public class PlayerBaseState : IState
         //else
         //{
         //    if (GetClosestEnemy() == null)
-        //        stateMachine.ChangeState(stateMachine.IdleState);
+        //        stateMachine.ChangeState(stateMachine.IdleState)
         //    else
         //        stateMachine.Target = GetClosestEnemy();
         //}

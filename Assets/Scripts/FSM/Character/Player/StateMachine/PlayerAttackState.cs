@@ -9,7 +9,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
         stateMachine.Player.weapon.SetAttack(stateMachine.Player.Data.Damage, stateMachine.Player.Data.Force, stateMachine.Player.Data.KnckbackDuration);
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
@@ -23,6 +22,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Update()
     {
+        stateMachine.Player.CharacterRigidbody2D.velocity = Vector2.zero;
         base.Update();
 
     //    if (stateMachine.Target)

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,16 +7,19 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
-    private Collider2D characterCollider;  
+    private Collider2D characterCollider;
     private EnemyStateMachine stateMachine;
-
-    public Health Health { get;  set; } 
+    public Health Health { get; set; }
 
     public Weapon weapon;
-
     public bool IsAttackRange { get; set; }
 
-    WaitForSeconds deadTime; 
+    [SerializeField] private ParticleSystem deadEffct;
+
+    private SpriteRenderer[] allSpriteRenderer;
+    private Color[] spriteColors;
+    private Color[] prevColor;
+
 
     private void Awake()
     {
@@ -32,28 +34,32 @@ public class Enemy : MonoBehaviour
 
         Health = GetComponent<Health>();
 
-        deadTime = new WaitForSeconds(.8f);
-    }
-
-    public void Start()
-    {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
+
+        allSpriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+        spriteColors = new Color[allSpriteRenderer.Length];
+        prevColor = new Color[spriteColors.Length];
+
+        for (int i = 0; i < allSpriteRenderer.Length; i++)
+        {
+            spriteColors[i] = allSpriteRenderer[i].color;
+        }
+
+        deadEffct.Stop();
     }
 
     public void Init()
     {
         Health.Init();
         characterCollider.enabled = true;
+        gameObject.SetActive(true);
 
-        stateMachine.ChangeState(stateMachine.IdleState);
-        int childCound = transform.childCount;
-        for (int i = 0; i < childCound; i++)
+        for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
-            Transform child = transform.GetChild(i);
-            child.gameObject.SetActive(true);
+            allSpriteRenderer[i].color = spriteColors[i];
         }
-
+        stateMachine.ChangeState(stateMachine.IdleState); 
         stateMachine.Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
@@ -65,19 +71,25 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        characterCollider.enabled = false; 
-        StartCoroutine(DeadAnimation());
+        characterCollider.enabled = false;
+        StartCoroutine(Fadeout());
     }
 
-    private IEnumerator DeadAnimation()
+    // TODO : 유틸 함수로 빼기 
+    private IEnumerator Fadeout()
     {
-        int childCound = transform.childCount;
-        for (int i = 0; i < childCound; i++)
+        deadEffct.Play();
+
+        for (float f = 1.2f; f > 0f; f -= 0.05f) 
         {
-            Transform child = transform.GetChild(i);
-            child.gameObject.SetActive(false);
+            for(int i = 0; i< allSpriteRenderer.Length; i++)
+            {
+                Color c = spriteColors[i];
+                c.a = f;
+                allSpriteRenderer[i].color = c; 
+            }
+            yield return null;
         }
-        yield return deadTime;
         gameObject.SetActive(false);
     }
 }

@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class EnemyDeadState : EnemyBaseState
@@ -9,8 +8,8 @@ public class EnemyDeadState : EnemyBaseState
 
     public override void Enter()
     {
-        stateMachine.Enemy.Animator.SetTrigger(stateMachine.Enemy.AnimationData.DeadParameterHash);
         stateMachine.Target = null; 
+
     }
 
     public override void Exit()
