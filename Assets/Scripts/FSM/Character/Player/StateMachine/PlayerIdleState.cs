@@ -22,13 +22,25 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Update();
 
+        //if (stateMachine.Target && !stateMachine.Target.IsDead)
+        //{
+        //    if (!IsInAttackRange())
+        //        stateMachine.ChangeState(stateMachine.ChasingState);
+        //    else
+        //    {
+        //        stateMachine.ChangeState(stateMachine.AttackState);
+        //    }
+        //}
+
+
         if (stateMachine.Target)
         {
             if (!IsInAttackRange())
                 stateMachine.ChangeState(stateMachine.ChasingState);
             else
+            {
                 stateMachine.ChangeState(stateMachine.AttackState);
+            }
         }
-
     }
 }

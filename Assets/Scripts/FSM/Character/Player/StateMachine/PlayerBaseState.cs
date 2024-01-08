@@ -22,23 +22,25 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        if (stateMachine.Target != null)
-        {
-            if (stateMachine.Target.IsDead)
-            {
-                stateMachine.Target = GetClosestEnemy();
-                stateMachine.ChangeState(stateMachine.ChasingState);
-            }
-            else if (IsInAttackRange() && !stateMachine.Target.IsDead)
-            {
-                stateMachine.ChangeState(stateMachine.AttackState);
-            }
-        }
-        else
+        //if (stateMachine.Target != null)
+        //{
+        //    if (stateMachine.Target.IsDead)
+        //    {
+        //        stateMachine.Target = GetClosestEnemy();
+        //    }
+
+        //}
+        //else
+        //{
+        //    if (GetClosestEnemy() == null)
+        //        stateMachine.ChangeState(stateMachine.IdleState);
+        //    else
+        //        stateMachine.Target = GetClosestEnemy();
+        //}
+
+        if (stateMachine.Target == null || stateMachine.Target.IsDead || !IsInAttackRange())
         {
             stateMachine.Target = GetClosestEnemy();
-            if(stateMachine.Target == null) 
-            stateMachine.ChangeState(stateMachine.IdleState);
         }
     }
 
@@ -73,8 +75,6 @@ public class PlayerBaseState : IState
         }
         Rotate(movementDirection);
     }
-
-
 
     public void Rotate(Vector2 direction)
     {
@@ -131,11 +131,10 @@ public class PlayerBaseState : IState
             }
         }
 
-        if(closestEnemy == null) return null;
+        if (closestEnemy == null) return null;
 
-        Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
-
-       // Rotate(direction); 
+        //Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
+        // Rotate(direction); 
         return closestEnemy?.GetComponent<Health>();
     }
 }

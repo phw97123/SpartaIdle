@@ -180,11 +180,11 @@ GameObject:
   - component: {fileID: 875542928048367095}
   - component: {fileID: 796283890644829654}
   - component: {fileID: 5552428313656587491}
-  - component: {fileID: 2263286732214544108}
   - component: {fileID: 7427189006523695641}
   - component: {fileID: 8250893339405936297}
-  - component: {fileID: 6287704417535873554}
   - component: {fileID: -4012659752374392321}
+  - component: {fileID: 2263286732214544108}
+  - component: {fileID: 6287704417535873554}
   - component: {fileID: 7550857040608673611}
   m_Layer: 7
   m_Name: Orc
@@ -286,19 +286,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2263286732214544108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2538802702350887504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05ed779b2c87294b8c066889e6cb2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 3084679702807958794}
 --- !u!50 &7427189006523695641
 Rigidbody2D:
   serializedVersion: 4
@@ -312,7 +299,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.3
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -361,6 +348,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.02}
   m_Size: {x: 0.2, y: 0.35}
   m_Direction: 0
+--- !u!210 &-4012659752374392321
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538802702350887504}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 51
+  m_SortAtRoot: 0
+--- !u!114 &2263286732214544108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538802702350887504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05ed779b2c87294b8c066889e6cb2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 3084679702807958794}
 --- !u!114 &6287704417535873554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,18 +389,6 @@ MonoBehaviour:
   character: {fileID: 2538802702350887504}
   shadowSprite: {fileID: 5373051198957193939}
   hitEffect: {fileID: 7514956334038060059}
---- !u!210 &-4012659752374392321
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2538802702350887504}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 51
-  m_SortAtRoot: 0
 --- !u!114 &7550857040608673611
 MonoBehaviour:
   m_ObjectHideFlags: 0

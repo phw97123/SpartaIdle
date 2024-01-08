@@ -1,17 +1,14 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
     public Animator Animator { get; private set; }
 
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
-    private Collider2D collider2d; 
-
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
-
+    private Collider2D characterCollider;  
     private EnemyStateMachine stateMachine;
 
     public Health Health { get;  set; } 
@@ -29,7 +26,7 @@ public class Enemy : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
-        collider2d = GetComponent<Collider2D>();
+        characterCollider = GetComponent<Collider2D>();
 
         stateMachine = new EnemyStateMachine(this);
 
@@ -47,6 +44,8 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health.Init();
+        characterCollider.enabled = true;
+
         stateMachine.ChangeState(stateMachine.IdleState);
         int childCound = transform.childCount;
         for (int i = 0; i < childCound; i++)
@@ -54,6 +53,8 @@ public class Enemy : MonoBehaviour
             Transform child = transform.GetChild(i);
             child.gameObject.SetActive(true);
         }
+
+        stateMachine.Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
     private void Update()
@@ -64,14 +65,13 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
+        characterCollider.enabled = false; 
         StartCoroutine(DeadAnimation());
     }
 
     private IEnumerator DeadAnimation()
     {
-        Animator.SetTrigger("Die");
         int childCound = transform.childCount;
-
         for (int i = 0; i < childCound; i++)
         {
             Transform child = transform.GetChild(i);
@@ -79,11 +79,5 @@ public class Enemy : MonoBehaviour
         }
         yield return deadTime;
         gameObject.SetActive(false);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 }

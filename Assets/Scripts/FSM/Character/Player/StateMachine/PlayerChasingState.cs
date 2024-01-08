@@ -18,7 +18,24 @@ public class PlayerChasingState : PlayerBaseState
 
     public override void Update()
     {
-        base.Update();
+        //Move();
+        //base.Update();
+        //if(stateMachine.Target != null)
+        //{
+        //    if (IsInAttackRange())
+        //        stateMachine.ChangeState(stateMachine.AttackState);
+        //}
+        //else
+        //    stateMachine.ChangeState(stateMachine.IdleState);
+
         Move();
+        base.Update();
+        if (stateMachine.Target != null)
+        {
+            if (IsInAttackRange())
+                stateMachine.ChangeState(stateMachine.AttackState);
+        }
+        else
+            stateMachine.ChangeState(stateMachine.IdleState);
     }
 }

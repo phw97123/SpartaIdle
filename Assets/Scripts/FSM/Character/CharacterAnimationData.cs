@@ -11,6 +11,7 @@ public class CharacterAnimationData
     [SerializeField] private string baseAttackParameterName = "BaseAttack";
 
     [SerializeField] private string hitParameterName = "Hit";
+    [SerializeField] private string deadParameterName = "Dead"; 
 
     public int IdleParameterHash { get; private set; }
     public int RunParameterHash { get; private set; }
@@ -18,6 +19,7 @@ public class CharacterAnimationData
     public int BaseAttackParameterHash { get; private set; }
 
     public int HitParameterHash { get; private set; }
+    public int DeadParameterHash {  get; private set; }
 
     public void Initialize()
     {
@@ -26,6 +28,7 @@ public class CharacterAnimationData
         AttackParameterHash = Animator.StringToHash(attackParameterName);
         BaseAttackParameterHash = Animator.StringToHash(baseAttackParameterName);
         HitParameterHash = Animator.StringToHash(hitParameterName);
+        DeadParameterHash = Animator.StringToHash(deadParameterName);
     }
 }
 

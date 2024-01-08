@@ -3,11 +3,11 @@ using UnityEngine;
 public class EnemyStateMachine : StateMachine
 {
     public Enemy Enemy { get; }
-    public Health Target { get; private set; }
+    public Health Target { get;  set; }
     public EnemyIdleState IdleState { get; }
     public EnemyChasingState ChasingState { get; }
     public EnemyAttackState AttackState { get; }
-
+    public EnemyDeadState DeadState { get; }
 
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; } = 1f;
@@ -20,5 +20,6 @@ public class EnemyStateMachine : StateMachine
         IdleState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);
+        DeadState = new EnemyDeadState(this);
     }
 }

@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
         if (collision.TryGetComponent<Health>(out Health health))
         {
             health.TakeDamage(damage);
-            if (damage > 0 && knockbackForce >0)
+            if (damage > 0 && knockbackForce > 0)
                 Knockback(collision.transform);
         }
     }
@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
         {
             timer += Time.deltaTime; 
             Vector2 direction = (obj.transform.position - gameObject.transform.position).normalized;
-            obj.GetComponent<Rigidbody2D>().AddForce(direction * knockbackForce);
+            obj.GetComponent<Rigidbody2D>().AddForce(direction * knockbackForce,ForceMode2D.Force);
         }
     }
 }

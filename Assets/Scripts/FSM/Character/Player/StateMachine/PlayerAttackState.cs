@@ -25,20 +25,27 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.Update();
 
-        if (stateMachine.Target)
-        {
-            if (!IsInAttackRange())
-            {
-                if (stateMachine.Player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                {
-                    stateMachine.Target = GetClosestEnemy();
-                    stateMachine.ChangeState(stateMachine.ChasingState);
-                }
-            }
-        }
-        else
-        {
+    //    if (stateMachine.Target)
+    //    {
+    //        if (!IsInAttackRange())
+    //        {
+    //            if (stateMachine.Player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+    //            {
+    //                stateMachine.Target = GetClosestEnemy();
+    //                stateMachine.ChangeState(stateMachine.ChasingState);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        stateMachine.ChangeState(stateMachine.IdleState);
+    //    }
+
+        if(stateMachine.Target == null)
             stateMachine.ChangeState(stateMachine.IdleState);
-        }
+
+        if(!IsInAttackRange())
+            stateMachine.ChangeState(stateMachine.ChasingState);
     }
+
 }

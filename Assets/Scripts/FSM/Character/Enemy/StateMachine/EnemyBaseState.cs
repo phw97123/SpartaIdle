@@ -7,6 +7,7 @@ public class EnemyBaseState : IState
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
+        stateMachine.Enemy.GetComponent<Health>().OnDie += OnDead; 
     }
 
     public virtual void Enter()
@@ -74,5 +75,10 @@ public class EnemyBaseState : IState
 
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
         return enemyDistanceSqr <= 0.5f * 0.5f;
+    }
+
+    private void OnDead()
+    {
+        stateMachine.ChangeState(stateMachine.DeadState); 
     }
 }
