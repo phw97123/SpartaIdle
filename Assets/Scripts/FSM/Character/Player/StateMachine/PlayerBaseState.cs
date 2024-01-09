@@ -38,12 +38,9 @@ public class PlayerBaseState : IState
         //        stateMachine.Target = GetClosestEnemy();
         //}
 
-        if(stateMachine.Player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime>=1)
+        if (stateMachine.Target == null || stateMachine.Target.IsDead || !IsInAttackRange())
         {
-            if (stateMachine.Target == null || stateMachine.Target.IsDead || !IsInAttackRange())
-            {
-                stateMachine.Target = GetClosestEnemy();
-            }
+            stateMachine.Target = GetClosestEnemy();
         }
     }
 

@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
             int randomPosition = Random.Range(0,spawnPostions.Length );
             Transform spawnPosition = spawnPostions[randomPosition];
             enemy.transform.position = spawnPosition.position;
-            enemy.GetComponent<Enemy>().Init(); 
+            enemy.GetComponent<Enemy>().Init();
             enemy.SetActive(true);
             enemies.Add(enemy);
             yield return spawnInterval; 
