@@ -42,11 +42,13 @@ public class PlayerBaseState : IState
         {
             stateMachine.Target = GetClosestEnemy();
         }
-
-        if(stateMachine.Target.IsDead)
+        
+        if(stateMachine.Target != null)
         {
-            // TODO : EnemyData(reward) ³Ö±â 
-            stateMachine.Player.playerData.UpdateExp(20); 
+            if (stateMachine.Target.IsDead)
+            {
+                stateMachine.Player.playerData.UpdateExp(20);
+            }
         }
     }
 
