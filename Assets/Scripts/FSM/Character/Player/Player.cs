@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance; 
+
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
 
     [field: SerializeField] public PlayerSO Data { get; private set; }
+
+    public PlayerData playerData; 
     public Animator Animator { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
@@ -15,7 +17,6 @@ public class Player : MonoBehaviour
     public Weapon weapon;
 
     public GameObject closestEnemy = null;
-
     public Health Health { get; private set; }
 
     public bool IsAttackRange {  get;  set; }
@@ -25,6 +26,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
+
         AnimationData = new CharacterAnimationData();
         AnimationData.Initialize();
 
@@ -32,6 +36,7 @@ public class Player : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
 
         Health = GetComponent<Health>();
+        playerData = new PlayerData(Health); 
         stateMachine = new PlayerStateMachine(this);
 
         target = stateMachine.Target; 
@@ -54,16 +59,4 @@ public class Player : MonoBehaviour
         Animator.SetTrigger("Die");
         enabled = false;
     }
-
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    //if (collision.transform.CompareTag("Enemy"))
-    //    //{
-    //    //    if (closestEnemy == null)
-    //    //    {
-    //    //        closestEnemy = collision.gameObject;
-    //    //        stateMachine.SetTargetEnemy(closestEnemy);
-    //    //    }
-    //    //}
-    //}
 }
