@@ -55,15 +55,15 @@ public class Player : MonoBehaviour
         enabled = false;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Enemy"))
-        {
-            if (closestEnemy == null)
-            {
-                closestEnemy = collision.gameObject;
-                stateMachine.SetTargetEnemy(closestEnemy);
-            }
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    //if (collision.transform.CompareTag("Enemy"))
+    //    //{
+    //    //    if (closestEnemy == null)
+    //    //    {
+    //    //        closestEnemy = collision.gameObject;
+    //    //        stateMachine.SetTargetEnemy(closestEnemy);
+    //    //    }
+    //    //}
+    //}
 }

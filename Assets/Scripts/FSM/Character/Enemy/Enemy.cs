@@ -18,8 +18,6 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer[] allSpriteRenderer;
     private Color[] spriteColors;
-    private Color[] prevColor;
-
 
     private void Awake()
     {
@@ -39,7 +37,6 @@ public class Enemy : MonoBehaviour
 
         allSpriteRenderer = GetComponentsInChildren<SpriteRenderer>();
         spriteColors = new Color[allSpriteRenderer.Length];
-        prevColor = new Color[spriteColors.Length];
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
