@@ -38,6 +38,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnSpawnEnemyDead()
     {
-        Player.instance.playerData.UpdateExp(20);
+        Player.Instance.playerData.UpdateExp(20);
     }
 }

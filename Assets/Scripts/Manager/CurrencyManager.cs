@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class CurrencyManager : MonoBehaviour
+public class CurrencyManager : Singleton<CurrencyManager>
 {
-    public static CurrencyManager instance;
-
     public event Action<CurrencyType, string> OnCurrencyChanged;
     public List<CurrencyData> currencyDatas = new List<CurrencyData>();
 
     private void Awake()
     {
-        instance = this;
     }
 
     //public void Init()

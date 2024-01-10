@@ -6,6 +6,7 @@ public class UI_Topbar : MonoBehaviour
     [Header("PlayerData")]
     [SerializeField] private Text nameText;
     [SerializeField] private Image iconImage;
+
     [SerializeField] private Text levelText;
     [SerializeField] private Text expPercentageText;
     [SerializeField] private Slider expSlider;
@@ -18,11 +19,11 @@ public class UI_Topbar : MonoBehaviour
 
     private void Awake()
     {
-        if (currencyManager == null) currencyManager = CurrencyManager.instance; 
+        if (currencyManager == null) currencyManager = CurrencyManager.Instance; 
     }
     private void Start()
     {
-        playerData = Player.instance.playerData;
+        playerData = Player.Instance.playerData;
         SetupEventListeners();
         UpdatePlayerInfoUI();
 
