@@ -11,26 +11,35 @@ public class UI_Topbar : MonoBehaviour
     [SerializeField] private Slider expSlider;
 
     [Header("CurrencyData")]
-    [SerializeField] private Text goldText;
-    [SerializeField] private Text diaText; 
+    [SerializeField] private Text[] currencyText;
 
     private PlayerData playerData;
+    private CurrencyManager currencyManager;
 
+    private void Awake()
+    {
+        if (currencyManager == null) currencyManager = CurrencyManager.instance; 
+    }
     private void Start()
     {
         playerData = Player.instance.playerData;
         SetupEventListeners();
+        UpdatePlayerInfoUI();
 
-        UpdateUI(); 
+        foreach (CurrencyData currencyData in currencyManager.currencyDatas)
+        {
+            UpdatecurrencyUI(currencyData.currencyType, currencyData.amount);
+        }
     }
 
     private void SetupEventListeners()
     {
-        playerData.OnExpChanged += UpdateUI;
-        playerData.OnLevelChanged += UpdateUI;
+        playerData.OnExpChanged += UpdatePlayerInfoUI;
+        playerData.OnLevelChanged += UpdatePlayerInfoUI;
+        currencyManager.OnCurrencyChanged += UpdatecurrencyUI; 
     }
 
-    public void UpdateUI()
+    public void UpdatePlayerInfoUI()
     {
         nameText.text = $"{playerData.name}";
         iconImage = playerData.iconImage; 
@@ -39,8 +48,12 @@ public class UI_Topbar : MonoBehaviour
         float percentage = (float)playerData.currentExp / playerData.maxExp *100; 
         expPercentageText.text = $"EXP {percentage:F2}%";
         expSlider.value = percentage /100;
+    }
 
-        // goldText.text = $"";
-        // diaText.text = $""; 
+    public void UpdatecurrencyUI(CurrencyType type, string amount)
+    {
+        int len = System.Enum.GetValues(typeof(CurrencyType)).Length;
+        CurrencyData currency = currencyManager.currencyDatas.Find(c => c.currencyType == type);
+        currencyText[(int)type].text = amount; 
     }
 }

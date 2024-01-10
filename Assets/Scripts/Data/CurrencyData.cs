@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 public enum CurrencyType
@@ -5,6 +6,7 @@ public enum CurrencyType
     Gold, Dia
 }
 
+[Serializable]
 public class CurrencyData
 {
     public CurrencyType currencyType;

@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Playables;
-
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
@@ -22,10 +18,5 @@ public class PlayerStateMachine : StateMachine
         AttackState = new PlayerAttackState(this);
 
         MovementSpeed = player.Data.BaseSpeed;
-    }
-
-    public void InitEventTarget()
-    {
-
     }
 }
