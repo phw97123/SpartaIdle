@@ -4320,7 +4320,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.01, y: 0.15}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!1 &2937454393685520855
 GameObject:
   m_ObjectHideFlags: 0
@@ -6447,6 +6447,10 @@ PrefabInstance:
     - target: {fileID: 7149882380832100370, guid: b893cea7848059e4ea8075e5f5779915, type: 3}
       propertyPath: m_Name
       value: UI_Questbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856748002542568430, guid: b893cea7848059e4ea8075e5f5779915, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -496
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20159,7 +20163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1030356338548213320, guid: 447ed38a4a36bec4e9eea48388fc8afd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6076460597365124429, guid: 447ed38a4a36bec4e9eea48388fc8afd, type: 3}
       propertyPath: m_Pivot.x

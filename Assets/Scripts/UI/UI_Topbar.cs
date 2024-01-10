@@ -40,7 +40,7 @@ public class UI_Topbar : MonoBehaviour
         expPercentageText.text = $"EXP {percentage:F2}%";
         expSlider.value = percentage /100;
 
-        goldText.text = $"";
-        diaText.text = $""; 
+        // goldText.text = $"";
+        // diaText.text = $""; 
     }
 }
