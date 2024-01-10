@@ -52,12 +52,15 @@ public class StatusUpgradeData
 
     private void StatusUpdate()
     {
-        currentUpgradeLevel++;
-        upgradeValue += increase;
-        upgradePrice = upgradePrice + (upgradePrice / 100 * pricePercent);
+        if(currentUpgradeLevel < maxUpgradeLevel)
+        {
+            currentUpgradeLevel++;
+            upgradeValue += increase;
+            upgradePrice = upgradePrice + (upgradePrice / 100 * pricePercent);
 
-        // TODO : Save
-        OnStatusUpgrade?.Invoke(baseSo.StatusType, increase);
+            // TODO : Save
+            OnStatusUpgrade?.Invoke(baseSo.StatusType, increase);
+        }
     }
 
     private void PercentStatusUpdate()

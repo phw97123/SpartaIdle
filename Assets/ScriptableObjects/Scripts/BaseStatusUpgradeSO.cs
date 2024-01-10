@@ -22,13 +22,13 @@ public class BaseStatusUpgradeSO : ScriptableObject
     [SerializeField] private float percentUpgradeValue;
     [SerializeField] private float percentIncrease;
 
-    public StatusType StatusType { get; private set; }
-    public int CurrentUpgradeLevel { get; private set; }
-    public int MaxUpgradeLevel { get; private set; }
-    public int UpgradePrice { get; private set; }
-    public int PricePercent { get; private set; }
-    public BigInteger UpgradeValue { get; private set; }
-    public int Increase { get; private set; }
-    public float PercentUpgradeValue { get; private set; }
-    public float PercentIncrease { get; private set; }
+    public StatusType StatusType => statusType; 
+    public int CurrentUpgradeLevel => currentUpgradeLevel;
+    public int MaxUpgradeLevel => maxUpgradeLevel;
+    public int UpgradePrice => upgradePrice;
+    public int PricePercent => pricePercent;
+    public BigInteger UpgradeValue => upgradeValue;
+    public int Increase => increase;
+    public float PercentUpgradeValue => percentUpgradeValue;
+    public float PercentIncrease => percentIncrease;
 }

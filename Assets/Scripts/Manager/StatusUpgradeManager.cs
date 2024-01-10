@@ -7,16 +7,17 @@ public class StatusUpgradeManager : Singleton<StatusUpgradeManager>
 
     private void Awake()
     {
-    }
-
-    private void Start()
-    {
         upgradeDatas = new List<StatusUpgradeData>();
         InitStatusUpgradeData(); 
     }
 
+    private void Start()
+    {
+    }
+
     public void InitStatusUpgradeData()
     {
+        // Load
         List<StatusUpgradeData> loadData = null;
         if (loadData == null)
         {

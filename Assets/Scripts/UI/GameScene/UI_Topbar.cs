@@ -19,7 +19,7 @@ public class UI_Topbar : MonoBehaviour
 
     private void Awake()
     {
-        if (currencyManager == null) currencyManager = CurrencyManager.Instance; 
+       currencyManager = CurrencyManager.Instance; 
     }
     private void Start()
     {

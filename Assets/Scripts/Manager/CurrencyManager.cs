@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEngine;
 
@@ -10,16 +11,21 @@ public class CurrencyManager : Singleton<CurrencyManager>
 
     private void Awake()
     {
+        Init(); 
     }
 
-    //public void Init()
-    //{
-    //    // TODO : Save, Load 필요
-    //    foreach (CurrencyData currencyData in currencyDatas)
-    //    {
-    //        OnCurrencyChanged?.Invoke(currencyData.currencyType, currencyData.amount);
-    //    }
-    //}
+    public void Init()
+    {
+        CurrencyData gold = new CurrencyData(CurrencyType.Gold,"10000");
+        CurrencyData dia = new CurrencyData(CurrencyType.Dia,"10000");
+        currencyDatas.Add(gold);
+        currencyDatas.Add(dia); 
+        // TODO : Save, Load 필요
+        foreach (CurrencyData currencyData in currencyDatas)
+        {
+            OnCurrencyChanged?.Invoke(currencyData.currencyType, currencyData.amount);
+        }
+    }
 
     public void AddCurrency(CurrencyType currencyType, BigInteger value)
     {
@@ -48,7 +54,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
         }
         return false; 
     }
-
+    
     public string GetCurrencyAmount(CurrencyType type)
     {
         CurrencyData data = currencyDatas.Find(c=>c.currencyType == type);

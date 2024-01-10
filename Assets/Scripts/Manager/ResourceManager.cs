@@ -13,7 +13,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         if(!prefabs.ContainsKey(name))
         {
-            GameObject go = Resources.Load<GameObject>($"Prefabs{name}");
+            GameObject go = Resources.Load<GameObject>($"Prefabs/{name}");
             if(!go)
             {
                 Debug.LogError($"Prefab 로드 실패 : {name}"); 
