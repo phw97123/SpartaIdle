@@ -25,9 +25,19 @@ public class EnemySpawner : MonoBehaviour
             Transform spawnPosition = spawnPostions[randomPosition];
             enemy.transform.position = spawnPosition.position;
             enemy.GetComponent<Enemy>().Init();
+
+            Health health = enemy.GetComponent<Health>();
+            health.OnDie -= OnSpawnEnemyDead; 
+            health.OnDie += OnSpawnEnemyDead;
+
             enemy.SetActive(true);
             enemies.Add(enemy);
             yield return spawnInterval; 
         }
+    }
+
+    private void OnSpawnEnemyDead()
+    {
+        Player.instance.playerData.UpdateExp(20);
     }
 }

@@ -42,6 +42,14 @@ public class PlayerBaseState : IState
         {
             stateMachine.Target = GetClosestEnemy();
         }
+        
+        if(stateMachine.Target != null)
+        {
+            if (stateMachine.Target.IsDead)
+            {
+                stateMachine.Player.playerData.UpdateExp(20);
+            }
+        }
     }
 
     protected void StartAnimation(int animationHash)
@@ -65,7 +73,7 @@ public class PlayerBaseState : IState
         float targetDistance = Vector2.Distance(stateMachine.Target.transform.position, stateMachine.Player.transform.position);
 
         float teleportDistance = 3f;
-        float teleportSpeed = 5f; 
+        float teleportSpeed = 5f;
 
         if (teleportDistance > targetDistance)
             stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * teleportSpeed;
@@ -93,7 +101,7 @@ public class PlayerBaseState : IState
         float movementSpeed = stateMachine.MovementSpeed;
         return movementSpeed;
     }
-   
+
     protected bool IsInAttackRange()
     {
         if (!stateMachine.Target) return false;
@@ -132,8 +140,8 @@ public class PlayerBaseState : IState
 
         if (closestEnemy == null) return null;
 
-        Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized; 
-        Rotate(direction); 
+        Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized;
+        Rotate(direction);
         return closestEnemy?.GetComponent<Health>();
     }
 }
