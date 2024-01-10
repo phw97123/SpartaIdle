@@ -7,6 +7,7 @@ public class PlayerChasingState : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
+        Move();
         StartAnimation(stateMachine.Player.AnimationData.RunParameterHash);
     }
 
@@ -28,7 +29,6 @@ public class PlayerChasingState : PlayerBaseState
         //else
         //    stateMachine.ChangeState(stateMachine.IdleState);
 
-        Move();
         base.Update();
         if (stateMachine.Target != null)
         {

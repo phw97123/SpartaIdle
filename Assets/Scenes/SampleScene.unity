@@ -516,6 +516,87 @@ MonoBehaviour:
   expSlider: {fileID: 631519646}
   goldText: {fileID: 0}
   diaText: {fileID: 0}
+--- !u!1 &1437827610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1437827611}
+  - component: {fileID: 1437827613}
+  - component: {fileID: 1437827612}
+  m_Layer: 0
+  m_Name: WeaponCol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1437827611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437827610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8386172318225867199}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437827612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437827610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e84b242271c17243a66cafcac66b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisCollider: {fileID: 4484417544655243869}
+--- !u!70 &1437827613
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437827610}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.006141221, y: 0.024646115}
+  m_Size: {x: 0.3, y: 1}
+  m_Direction: 0
 --- !u!114 &1559644725 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7007288386372563734, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
@@ -700,7 +781,6 @@ GameObject:
   - component: {fileID: 8386172318225867199}
   - component: {fileID: 7423808509520952140}
   - component: {fileID: 2241046108890845361}
-  - component: {fileID: 9038654126131827663}
   m_Layer: 0
   m_Name: Sward
   m_TagString: Untagged
@@ -4102,7 +4182,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.006141221, y: 0.024646115}
-  m_Size: {x: 0.24996883, y: 0.90067136}
+  m_Size: {x: 0.3, y: 1}
   m_Direction: 0
 --- !u!1 &2243426335334997248
 GameObject:
@@ -4148,7 +4228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30eecb72c947f734b88f5dc2e6f84ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponCollider: {fileID: 2241046108890845361}
+  weaponCollider: {fileID: 1437827613}
 --- !u!1 &2474789695293643738
 GameObject:
   m_ObjectHideFlags: 0
@@ -4318,9 +4398,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: 0.15}
+  m_Offset: {x: -0.2, y: 0.15}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.3
 --- !u!1 &2937454393685520855
 GameObject:
   m_ObjectHideFlags: 0
@@ -7575,6 +7655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6310524260490479746}
+  monstersDetectedCount: 0
 --- !u!212 &4838592424181049177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19897,7 +19978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 63bc4006f6ea75a45a9adb5ef6a679e0, type: 2}
-  weapon: {fileID: 9038654126131827663}
+  weapon: {fileID: 1437827612}
   closestEnemy: {fileID: 0}
   isAttack: 0
   target: {fileID: 0}
@@ -28017,7 +28098,8 @@ Transform:
   m_LocalPosition: {x: -0.013, y: 0.334, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1437827611}
   m_Father: {fileID: 6609642337462867796}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0.003, y: -0.001, z: 6.192}
@@ -28527,19 +28609,6 @@ Transform:
   m_Father: {fileID: 1961470027765009680}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9038654126131827663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237022176592430650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e84b242271c17243a66cafcac66b30b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisCollider: {fileID: 4484417544655243869}
 --- !u!1 &9043715121514334974
 GameObject:
   m_ObjectHideFlags: 0

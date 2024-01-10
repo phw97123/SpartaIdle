@@ -6,11 +6,11 @@ public class SetDamage : MonoBehaviour
 
     public void StartAttackNotify()
     {
-        weaponCollider.enabled = true;
+        weaponCollider.gameObject.SetActive(true);
     }
 
     public void StopAttackNotify()
     {
-        weaponCollider.enabled = false;
+        weaponCollider.gameObject.SetActive(false);
     }
 }

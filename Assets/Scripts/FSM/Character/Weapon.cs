@@ -16,7 +16,10 @@ public class Weapon : MonoBehaviour
         {
             health.TakeDamage(damage);
             if (damage > 0 && knockbackForce > 0)
-                Knockback(collision.transform);
+            {
+                //Knockback(collision.transform);
+
+            }
         }
     }
 
