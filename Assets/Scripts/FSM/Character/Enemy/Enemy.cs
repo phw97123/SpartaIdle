@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -16,7 +18,9 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private ParticleSystem deadEffct;
 
-    private SpriteRenderer[] allSpriteRenderer;
+    [SerializeField] private SpriteRenderer[] allSpriteRenderer;
+    [SerializeField] private Sprite[] initialSpriteRenderer;
+
     private Color[] spriteColors;
 
     private void Awake()
@@ -36,10 +40,13 @@ public class Enemy : MonoBehaviour
         Health.OnDie += OnDie;
 
         allSpriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+
         spriteColors = new Color[allSpriteRenderer.Length];
+        initialSpriteRenderer = new Sprite[allSpriteRenderer.Length];
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
+            initialSpriteRenderer[i] = allSpriteRenderer[i].sprite;
             spriteColors[i] = allSpriteRenderer[i].color;
         }
 
@@ -50,13 +57,13 @@ public class Enemy : MonoBehaviour
     {
         Health.Init();
         characterCollider.enabled = true;
-        gameObject.SetActive(true);
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
             allSpriteRenderer[i].color = spriteColors[i];
         }
-        stateMachine.ChangeState(stateMachine.IdleState); 
+        //InitSprite();
+        stateMachine.ChangeState(stateMachine.IdleState);
         stateMachine.Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
@@ -91,7 +98,17 @@ public class Enemy : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         gameObject.SetActive(false);
+        InitSprite();
+
+    }
+
+    public void InitSprite()
+    {
+        for (int i = 0; i < allSpriteRenderer.Length; i++)
+        {
+            allSpriteRenderer[i].sprite = initialSpriteRenderer[i];
+            allSpriteRenderer[i].transform.rotation = Quaternion.identity;
+        }
     }
 }

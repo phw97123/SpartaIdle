@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PlayerStateMachine : StateMachine
 {
@@ -14,17 +15,17 @@ public class PlayerStateMachine : StateMachine
     public PlayerStateMachine(Player player)
     {
         Player = player;
-        Target = null; 
+        Target = null;
 
         IdleState = new PlayerIdleState(this); 
         ChasingState = new PlayerChasingState(this);
         AttackState = new PlayerAttackState(this);
 
-        MovementSpeed = player.Data.BaseSpeed; 
+        MovementSpeed = player.Data.BaseSpeed;
     }
 
-    public void SetTargetEnemy(GameObject target)
+    public void InitEventTarget()
     {
-        Target = target.GetComponent<Health>();
+
     }
 }

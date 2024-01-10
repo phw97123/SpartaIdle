@@ -375,6 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 3084679702807958794}
   deadEffct: {fileID: 8282206048639863443}
+  allSpriteRenderer: []
+  initialSpriteRenderer: []
 --- !u!114 &6287704417535873554
 MonoBehaviour:
   m_ObjectHideFlags: 0

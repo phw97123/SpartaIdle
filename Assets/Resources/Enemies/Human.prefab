@@ -128,7 +128,7 @@ Transform:
   - {fileID: 4180184910914471653}
   - {fileID: 273843881281524370}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &854497326388695150
 SpriteRenderer:
@@ -291,6 +291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 7897952540596077489}
   deadEffct: {fileID: 2502239010253364322}
+  allSpriteRenderer: []
+  initialSpriteRenderer: []
 --- !u!114 &451525739556400665
 MonoBehaviour:
   m_ObjectHideFlags: 0

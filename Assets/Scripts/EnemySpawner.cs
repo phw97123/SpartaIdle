@@ -24,10 +24,21 @@ public class EnemySpawner : MonoBehaviour
             int randomPosition = Random.Range(0,spawnPostions.Length );
             Transform spawnPosition = spawnPostions[randomPosition];
             enemy.transform.position = spawnPosition.position;
-            enemy.GetComponent<Enemy>().Init(); 
+            enemy.GetComponent<Enemy>().Init();
+
+            Health health = enemy.GetComponent<Health>();
+            health.OnDie -= OnSpawnEnemyDead; 
+            health.OnDie += OnSpawnEnemyDead;
+
             enemy.SetActive(true);
             enemies.Add(enemy);
+            Debug.Log($"{enemies.Count} / {maxEnemies}"); 
             yield return spawnInterval; 
         }
+    }
+
+    private void OnSpawnEnemyDead()
+    {
+        Player.instance.playerData.UpdateExp(20);
     }
 }
