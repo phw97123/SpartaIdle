@@ -18,7 +18,7 @@ public class CurrencyData
         currentAmount += value;
         amount = currentAmount.ToString();
     }
-
+ 
     public bool Subtract(BigInteger value)
     {
         BigInteger currentAmout = new BigInteger(int.Parse(amount));

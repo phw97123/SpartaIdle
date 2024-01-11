@@ -1,7 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Numerics;
 
-public enum StatusType { Atk, Hp, Def, Crit_ch, Crit_Dmg, Hp_Re, Atk_Big, Hp_Big, Mp, Mp_Re }
+public enum StatusType { Atk, Hp, Crit_ch, Crit_Dmg, Hp_Re, Atk_Big, Hp_Big, Mp, Mp_Re }
 
 public enum DataType { Int, Float }
 public class StatusUpgradeData
@@ -56,7 +57,8 @@ public class StatusUpgradeData
         {
             currentUpgradeLevel++;
             upgradeValue += increase;
-            upgradePrice = upgradePrice + (upgradePrice / 100 * pricePercent);
+            upgradePrice += pricePercent;
+            pricePercent += 10;
 
             // TODO : Save
             OnStatusUpgrade?.Invoke(baseSo.StatusType, increase);
@@ -67,8 +69,8 @@ public class StatusUpgradeData
     {
         currentUpgradeLevel++;
         percentUpgradeValue += percentIncrease;
-        upgradePrice = upgradePrice + (upgradePrice / 100 * pricePercent);
-
+        upgradePrice += pricePercent;
+        pricePercent += 10; 
         // TODO : Save
         OnPercentUpgrade?.Invoke(baseSo.StatusType, percentUpgradeValue);
     }

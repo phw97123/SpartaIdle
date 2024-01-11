@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64508eca84b274340acc9e58d1525054, type: 3}
-  m_Name: Hp
+  m_Name: 4_Crit_Dmg
   m_EditorClassIdentifier: 
-  statusType: 1
+  statusType: 3
   dataType: 0
   currencyType: 0
-  upgradeName: "\uCCB4\uB825 \uC99D\uAC00"
-  currentUpgradeLevel: 1
-  maxUpgradeLevel: 2
-  upgradePrice: 3
-  pricePercent: 4
-  increase: 5
-  percentUpgradeValue: 6
-  percentIncrease: 7
+  upgradeName: "\uCE58\uBA85\uD0C0 \uD53C\uD574 \uC99D\uAC00 "
+  baseUpgradeLevel: 1
+  maxUpgradeLevel: 5000
+  baseUpgradePrice: 118
+  pricePercent: 54
+  upgradeValue: 1
+  increase: 1
+  percentUpgradeValue: 0
+  percentIncrease: 0

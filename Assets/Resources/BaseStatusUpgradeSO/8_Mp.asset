@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64508eca84b274340acc9e58d1525054, type: 3}
-  m_Name: Atk
+  m_Name: 8_Mp
   m_EditorClassIdentifier: 
-  statusType: 0
+  statusType: 7
   dataType: 0
-  currencyType: 0
-  upgradeName: "\uD53C\uD574\uB7C9 \uC99D\uAC00"
-  currentUpgradeLevel: 1
-  maxUpgradeLevel: 2
-  upgradePrice: 3
-  pricePercent: 4
+  currencyType: 1
+  upgradeName: "\uB0B4\uACF5 \uC99D\uAC00 "
+  baseUpgradeLevel: 1
+  maxUpgradeLevel: 200
+  baseUpgradePrice: 300
+  pricePercent: 0
+  upgradeValue: 5
   increase: 5
-  percentUpgradeValue: 7
-  percentIncrease: 8
+  percentUpgradeValue: 0
+  percentIncrease: 0

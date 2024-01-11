@@ -666,7 +666,9 @@ MonoBehaviour:
   levelText: {fileID: 3834749682187552109}
   expPercentageText: {fileID: 7007288386372563734}
   expSlider: {fileID: 5830982072712814536}
-  currencyText: []
+  currencyText:
+  - {fileID: 4918306529959868654}
+  - {fileID: 2328617465632819992}
 --- !u!1 &3087564645704186150
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +870,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.641
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1133,10 +1135,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: cbcdffa89509f425494a184b4b164bf5, type: 3}
-  m_Type: 1
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1154,7 +1156,7 @@ GameObject:
   - component: {fileID: 1603399073641311531}
   - component: {fileID: 4918306529959868654}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1469,7 +1471,7 @@ GameObject:
   - component: {fileID: 2796983164705143143}
   - component: {fileID: 2328617465632819992}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Dia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

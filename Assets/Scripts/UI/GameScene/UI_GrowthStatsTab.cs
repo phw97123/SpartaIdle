@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_GrowthStatsTab : UI_Base
 {
@@ -7,19 +8,46 @@ public class UI_GrowthStatsTab : UI_Base
 
     [SerializeField] private Transform slotContent;
 
-    private List<UI_GrowthStatsSlot> slots; 
-    private bool isInit = false; 
+    [SerializeField] private Toggle minToggle;
+    [SerializeField] private Toggle mediumToggle;
+    [SerializeField] private Toggle maxToggle;
+
+    [SerializeField] private Text minNumText;
+    [SerializeField] private Text mediumNumText;
+    [SerializeField] private Text maxNumText;
+
+    const int min = 1, medium = 5, max = 10;
+
+    private List<UI_GrowthStatsSlot> slots = new List<UI_GrowthStatsSlot>();
+    private bool isInit = false;
 
     public override void OpenUI()
     {
         base.OpenUI();
         if (!isInit) Init();
-        else SetSlots(); 
+        else SetSlots();
     }
 
     private void Init()
     {
         CreateSlot(StatusUpgradeManager.Instance.GetUpgradeDatas());
+    
+        minToggle.onValueChanged.AddListener((isOn) =>
+        {
+            NumberToggle(min);
+        });
+        mediumToggle.onValueChanged.AddListener((isOn) =>
+        {
+            NumberToggle(medium);
+        });
+        maxToggle.onValueChanged.AddListener((isOn) =>
+        {
+            NumberToggle(max);
+        });
+
+        minNumText.text = $"X{min}";
+        mediumNumText.text = $"X{medium}";
+        maxNumText.text = $"X{max}";
     }
 
     private void CreateSlot(List<StatusUpgradeData> datas)
@@ -29,13 +57,50 @@ public class UI_GrowthStatsTab : UI_Base
             GameObject slotPrefab = ResourceManager.Instance.Instantiate(GROWTHSLOT_PATH, slotContent);
             UI_GrowthStatsSlot slot = slotPrefab.GetComponent<UI_GrowthStatsSlot>();
             slot.transform.SetParent(slotContent);
-            slot.Init(data); 
+            slot.Init(data);
+            slots.Add(slot);
+        }
+
+        foreach (UI_GrowthStatsSlot slot in slots)
+        {
+            slot.OnButton += SetAllButton;
         }
     }
 
     private void SetSlots()
     {
         foreach (UI_GrowthStatsSlot slot in slots)
-            slot.UpdateSlotUI(); 
+        {
+            slot.UpdateSlotUI();
+        }
+    }
+
+    private void SetAllButton()
+    {
+        foreach (UI_GrowthStatsSlot slot in slots)
+        {
+            slot.SetButtonInteractable();
+        }
+    }
+
+    private void NumberToggle(int num)
+    {
+        //switch (num)
+        //{
+        //    case min:
+        //        selectedToggle = minToggle; 
+        //        break;
+        //    case medium: 
+        //        selectedToggle = mediumToggle;
+        //        break;
+        //    case max:
+        //        selectedToggle = maxToggle;
+        //        break;
+        //}
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].ChangeUpgradePrice(num);
+        }
     }
 }

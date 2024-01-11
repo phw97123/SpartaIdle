@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 4052987119078135227}
   - component: {fileID: 4370161816930670669}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StoreButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 5961515833057659926}
   - component: {fileID: 383306644231953304}
   - component: {fileID: 2634080804903901102}
+  - component: {fileID: -1348840422064319479}
   m_Layer: 5
   m_Name: UI_Bottombar
   m_TagString: Untagged
@@ -408,7 +409,7 @@ RectTransform:
   m_Children:
   - {fileID: 3881746807025519865}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -478,6 +479,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-1348840422064319479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030356338548213320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c60536dd0ef0c4bbc7dd52a596e8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storeButton: {fileID: 4370161816930670669}
+  growthButton: {fileID: 9198607448349423686}
+  summonButton: {fileID: 3580048424256028754}
+  equipmentButton: {fileID: 2624657721001653326}
+  skillButton: {fileID: 6102645036332618230}
+  dungeonButton: {fileID: 5044582469342744156}
 --- !u!1 &1192200184353522395
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +823,7 @@ GameObject:
   - component: {fileID: 6573810827390838655}
   - component: {fileID: 9198607448349423686}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: GrowthButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,7 +962,7 @@ GameObject:
   - component: {fileID: 2576384411993533916}
   - component: {fileID: 6102645036332618230}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: SkillButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1169,14 +1188,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6320972024666460830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.2502161, w: -0.9681901}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6463712138524075225}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.981}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -5, y: 20}
@@ -1234,7 +1253,7 @@ GameObject:
   - component: {fileID: 6387879846930501640}
   - component: {fileID: 3580048424256028754}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: SummonButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1373,7 +1392,7 @@ GameObject:
   - component: {fileID: 7022829570932742629}
   - component: {fileID: 5044582469342744156}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: DungeonButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1512,7 +1531,7 @@ GameObject:
   - component: {fileID: 6904753950072839713}
   - component: {fileID: 2624657721001653326}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: EquipmentButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

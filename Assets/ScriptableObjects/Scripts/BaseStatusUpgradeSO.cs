@@ -8,26 +8,31 @@ public class BaseStatusUpgradeSO : ScriptableObject
     [SerializeField] public DataType dataType;
     [SerializeField] public CurrencyType currencyType;
 
-    [SerializeField] public string upgradeName; 
+    [Header("[능력치 이름]")]
+    [SerializeField] public string upgradeName;
 
-    [SerializeField] private int currentUpgradeLevel;
+    [Header("[레벨, 최대 레벨]")]
+    [SerializeField] private int baseUpgradeLevel;
     [SerializeField] private int maxUpgradeLevel;
 
-    [SerializeField] private int upgradePrice;
+    [Header("[초기 가격, 가격 증가율]")]
+    [SerializeField] private int baseUpgradePrice;
     [SerializeField] private int pricePercent;
 
-    [SerializeField] private BigInteger upgradeValue;
+    [Header("[int 초기 값, 증가량]")]
+    [SerializeField] private int upgradeValue;
     [SerializeField] private int increase;
 
+    [Header("[float 초기 값, 증가량]")]
     [SerializeField] private float percentUpgradeValue;
     [SerializeField] private float percentIncrease;
 
     public StatusType StatusType => statusType; 
-    public int CurrentUpgradeLevel => currentUpgradeLevel;
+    public int CurrentUpgradeLevel => baseUpgradeLevel;
     public int MaxUpgradeLevel => maxUpgradeLevel;
-    public int UpgradePrice => upgradePrice;
+    public int UpgradePrice => baseUpgradePrice;
     public int PricePercent => pricePercent;
-    public BigInteger UpgradeValue => upgradeValue;
+    public int UpgradeValue => upgradeValue;
     public int Increase => increase;
     public float PercentUpgradeValue => percentUpgradeValue;
     public float PercentIncrease => percentIncrease;

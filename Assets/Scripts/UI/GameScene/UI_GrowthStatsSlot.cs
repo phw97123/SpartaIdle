@@ -1,19 +1,24 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_GrowthStatsSlot : UI_Base
 {
-    [SerializeField] Text slotNameText;
-    [SerializeField] Text currentLevelText;
-    [SerializeField] Text maxLevelText;
-    [SerializeField] Text increaseText;
+    [SerializeField] private Image iconImage;
+    [SerializeField] private Text slotNameText;
+    [SerializeField] private Text currentLevelText;
+    [SerializeField] private Text maxLevelText;
+    [SerializeField] private Text increaseText;
 
-    [SerializeField] Button upgradeButton;
-    [SerializeField] Text upgradePriceText;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Text upgradePriceText;
 
+    [SerializeField] private Sprite[] sprites;
     private StatusUpgradeData data;
-
     private CurrencyManager currencyManager;
+    public Action OnButton;
+
+    private int number = 1;
 
     public void Init(StatusUpgradeData data)
     {
@@ -26,17 +31,18 @@ public class UI_GrowthStatsSlot : UI_Base
 
     public void UpdateSlotUI()
     {
+        iconImage.sprite = sprites[(int)data.baseSo.currencyType];
         slotNameText.text = $"{data.baseSo.upgradeName}";
         currentLevelText.text = $"Lv.{data.currentUpgradeLevel}";
         maxLevelText.text = $"Max Lv.{data.maxUpgradeLevel}";
         // TODO : 한국 단위로 변경
         upgradePriceText.text = $"{data.upgradePrice}";
-        if (data.upgradeValue == null)
+        if (data.upgradeValue == 0)
         {
-            increaseText.text = $"{data.percentUpgradeValue:0.00}";
-            return;
+            increaseText.text = $"{data.percentUpgradeValue:F2}";
         }
-        increaseText.text = $"{data.upgradeValue}";
+        else
+            increaseText.text = $"{data.upgradeValue}";
 
         SetButtonInteractable();
     }
@@ -45,23 +51,40 @@ public class UI_GrowthStatsSlot : UI_Base
     {
         if (!CurrencyManager.Instance.SubtractCurrency(data.baseSo.currencyType, data.upgradePrice)) return;
 
-        data.UpgradeUpdate();
-        UpdateSlotUI();
+        for (int i = 0; i < number; i++)
+        {
+            data.UpgradeUpdate();
+            UpdateSlotUI();
+            OnButton?.Invoke();
+
+            Debug.Log(i); 
+        }
     }
 
-    private void SetButtonInteractable()
+    public void SetButtonInteractable()
     {
-        if (data.upgradePrice <= int.Parse(currencyManager.GetCurrencyAmount(data.baseSo.currencyType)) && data.currentUpgradeLevel < data.maxUpgradeLevel)
+        if (data.upgradePrice <= int.Parse(currencyManager.GetCurrencyAmount(data.baseSo.currencyType)))
         {
             upgradePriceText.color = Color.white;
             upgradeButton.interactable = true;
         }
         else
         {
-            if (data.currentUpgradeLevel < data.maxUpgradeLevel)
-                upgradePriceText.color = Color.red;
-
+            upgradePriceText.color = Color.red;
             upgradeButton.interactable = false;
         }
+
+        if (data.currentUpgradeLevel >= data.maxUpgradeLevel)
+        {
+            upgradePriceText.color = Color.white;
+            upgradePriceText.text = "0";
+            upgradeButton.interactable = false;
+        }
+    }
+
+    public void ChangeUpgradePrice(int newnNumber)
+    {
+        number = newnNumber;
+        upgradePriceText.text = $"{data.upgradePrice*number+number+1}";
     }
 }

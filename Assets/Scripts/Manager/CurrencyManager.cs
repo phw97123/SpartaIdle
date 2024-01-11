@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using UnityEngine;
 
 public class CurrencyManager : Singleton<CurrencyManager>
 {
@@ -18,8 +16,9 @@ public class CurrencyManager : Singleton<CurrencyManager>
     {
         CurrencyData gold = new CurrencyData(CurrencyType.Gold,"10000");
         CurrencyData dia = new CurrencyData(CurrencyType.Dia,"10000");
-        currencyDatas.Add(gold);
-        currencyDatas.Add(dia); 
+
+        currencyDatas.Add(gold); 
+        currencyDatas.Add(dia);
         // TODO : Save, Load ÇÊ¿ä
         foreach (CurrencyData currencyData in currencyDatas)
         {

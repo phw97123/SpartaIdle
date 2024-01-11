@@ -53,7 +53,6 @@ public class UI_Topbar : MonoBehaviour
 
     public void UpdatecurrencyUI(CurrencyType type, string amount)
     {
-        int len = System.Enum.GetValues(typeof(CurrencyType)).Length;
         CurrencyData currency = currencyManager.currencyDatas.Find(c => c.currencyType == type);
         currencyText[(int)type].text = amount; 
     }
