@@ -18,8 +18,8 @@ public class Weapon : MonoBehaviour
             {
                 if (enemyHealth.TakeDamage(damage))
                 {
-                    Player.instance.target = null;
-                    Player.instance.stateMachine.Target = null;
+                    Player.Instance.target = null;
+                    Player.Instance.stateMachine.Target = null;
                 }
             }
         }
@@ -28,13 +28,12 @@ public class Weapon : MonoBehaviour
         {
             if (playerHealth.TakeDamage(damage))
             {
-                Player.instance.target = null;
-                Player.instance.stateMachine.Target = null;
+                Player.Instance.target = null;
+                Player.Instance.stateMachine.Target = null;
             }
             if (damage > 0 && knockbackForce > 0)
             {
                 //Knockback(collision.transform);
-
             }
         }
     }

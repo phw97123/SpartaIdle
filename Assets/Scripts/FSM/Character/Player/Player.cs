@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Singleton<Player>
+public class Player : MonoBehaviour
 {
+    public static Player Instance; 
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
 
     [field: SerializeField] public PlayerSO Data { get; private set; }
@@ -27,6 +28,9 @@ public class Player : Singleton<Player>
 
     private void Awake()
     {
+        if(Instance == null)
+            Instance = this;
+
         AnimationData = new CharacterAnimationData();
         AnimationData.Initialize();
 

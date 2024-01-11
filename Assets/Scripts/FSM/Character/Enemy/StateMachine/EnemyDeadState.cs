@@ -10,7 +10,7 @@ public class EnemyDeadState : EnemyBaseState
     {
         Debug.Log("죽었닥 ");
         stateMachine.Target = null;
-         Player.instance.playerData.UpdateExp(20);
+         Player.Instance.playerData.UpdateExp(20);
     }
 
     public override void Exit()
