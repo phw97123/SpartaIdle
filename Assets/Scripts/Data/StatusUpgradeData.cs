@@ -58,7 +58,7 @@ public class StatusUpgradeData
             currentUpgradeLevel++;
             upgradeValue += increase;
             upgradePrice += pricePercent;
-            pricePercent += 10;
+            pricePercent += pricePercent;
 
             // TODO : Save
             OnStatusUpgrade?.Invoke(baseSo.StatusType, increase);
@@ -70,7 +70,7 @@ public class StatusUpgradeData
         currentUpgradeLevel++;
         percentUpgradeValue += percentIncrease;
         upgradePrice += pricePercent;
-        pricePercent += 10; 
+        pricePercent += pricePercent; 
         // TODO : Save
         OnPercentUpgrade?.Invoke(baseSo.StatusType, percentUpgradeValue);
     }

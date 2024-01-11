@@ -35,7 +35,6 @@ public class UI_GrowthStatsSlot : UI_Base
         slotNameText.text = $"{data.baseSo.upgradeName}";
         currentLevelText.text = $"Lv.{data.currentUpgradeLevel}";
         maxLevelText.text = $"Max Lv.{data.maxUpgradeLevel}";
-        // TODO : 한국 단위로 변경
         upgradePriceText.text = $"{data.upgradePrice}";
         if (data.upgradeValue == 0)
         {
