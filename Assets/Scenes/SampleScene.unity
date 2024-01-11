@@ -6513,7 +6513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8856748002542568430, guid: b893cea7848059e4ea8075e5f5779915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -496
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19878,6 +19878,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 628135394318139005, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 934063524912968621, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -20017,6 +20021,10 @@ PrefabInstance:
     - target: {fileID: 6755057502567104996, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
       propertyPath: m_Name
       value: Gold
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154949777165536011, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7961128206682778995, guid: cd808fdf6acedc648beb7ff97f9bf147, type: 3}
       propertyPath: currencyText.Array.size

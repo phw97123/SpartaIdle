@@ -21,9 +21,12 @@ public class UI_GrowthStatsTab : UI_Base
     private List<UI_GrowthStatsSlot> slots = new List<UI_GrowthStatsSlot>();
     private bool isInit = false;
 
+    private int currentToggle = min; 
+
     public override void OpenUI()
     {
         base.OpenUI();
+
         if (!isInit) Init();
         else SetSlots();
     }
@@ -31,18 +34,18 @@ public class UI_GrowthStatsTab : UI_Base
     private void Init()
     {
         CreateSlot(StatusUpgradeManager.Instance.GetUpgradeDatas());
-    
+
         minToggle.onValueChanged.AddListener((isOn) =>
         {
-            NumberToggle(min);
+            if (isOn) NumberToggle(min);
         });
         mediumToggle.onValueChanged.AddListener((isOn) =>
         {
-            NumberToggle(medium);
+            if (isOn) NumberToggle(medium);
         });
         maxToggle.onValueChanged.AddListener((isOn) =>
         {
-            NumberToggle(max);
+            if (isOn) NumberToggle(max);
         });
 
         minNumText.text = $"X{min}";
@@ -85,22 +88,10 @@ public class UI_GrowthStatsTab : UI_Base
 
     private void NumberToggle(int num)
     {
-        //switch (num)
-        //{
-        //    case min:
-        //        selectedToggle = minToggle; 
-        //        break;
-        //    case medium: 
-        //        selectedToggle = mediumToggle;
-        //        break;
-        //    case max:
-        //        selectedToggle = maxToggle;
-        //        break;
-        //}
-
         for (int i = 0; i < slots.Count; i++)
         {
             slots[i].ChangeUpgradePrice(num);
         }
+        SetAllButton(); 
     }
 }

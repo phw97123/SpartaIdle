@@ -56,8 +56,6 @@ public class UI_GrowthStatsSlot : UI_Base
             data.UpgradeUpdate();
             UpdateSlotUI();
             OnButton?.Invoke();
-
-            Debug.Log(i); 
         }
     }
 
