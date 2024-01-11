@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer[] allSpriteRenderer;
     [SerializeField] private Sprite[] initialSpriteRenderer;
 
+    [SerializeField] private CapsuleCollider2D attackCol;
+
     private Color[] spriteColors;
 
     private void Awake()
@@ -57,6 +59,8 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health.Init();
+        attackCol.gameObject.SetActive(true);
+
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
@@ -75,6 +79,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
+        attackCol.gameObject.SetActive(false);
         StartCoroutine(Fadeout());
     }
 

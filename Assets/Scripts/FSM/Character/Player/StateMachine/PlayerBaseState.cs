@@ -65,6 +65,10 @@ public class PlayerBaseState : IState
         stateMachine.Player.Animator.SetBool(animationHash, false);
     }
 
+
+    private float teleportCooldown = 1f; // 쿨다운 시간 (1초)
+    private float lastTeleportTime; // 마지막 텔레포트 시간
+
     public void Move()
     {
         if (stateMachine.Target == null) return;
@@ -78,10 +82,16 @@ public class PlayerBaseState : IState
         float teleportDistance = 3f;
         float teleportSpeed = 5f;
 
-        if (teleportDistance > targetDistance)
+        // 현재 시간이 마지막 텔레포트 시간 + 쿨다운 시간보다 크거나 같은 경우에만 텔레포트 실행
+        if (teleportDistance > targetDistance && Time.time >= lastTeleportTime + teleportCooldown)
+        {
             stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed * teleportSpeed;
+            lastTeleportTime = Time.time; // 마지막 텔레포트 시간 업데이트
+        }
         else
+        {
             stateMachine.Player.CharacterRigidbody2D.velocity = movementDirection * movementSpeed;
+        }
 
         Rotate(movementDirection);
     }
@@ -125,7 +135,7 @@ public class PlayerBaseState : IState
         {
             if (hitCollider.CompareTag("Enemy"))
             {
-                Health enemyHealth = hitCollider.GetComponent<Health>();
+                Health enemyHealth = hitCollider.transform.parent.GetComponent<Health>();
 
                 if (enemyHealth != null && !enemyHealth.IsDead)
                 {
@@ -144,6 +154,6 @@ public class PlayerBaseState : IState
 
         Vector2 direction = (closestEnemy.transform.position - currentPosition).normalized;
         Rotate(direction); // Rotate 함수를 필요에 따라 구현
-        return closestEnemy.GetComponent<Health>();
+        return closestEnemy.transform.parent.GetComponent<Health>();
     }
 }
