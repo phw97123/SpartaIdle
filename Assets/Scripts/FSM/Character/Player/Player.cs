@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Singleton<Player>
@@ -20,7 +21,9 @@ public class Player : Singleton<Player>
     public bool IsAttackRange {  get;  set; }
     public bool isAttack; 
 
-    public Health target; 
+    public Health target;
+
+    public Dictionary<string, float> animationLengths = new Dictionary<string, float>();
 
     private void Awake()
     {
@@ -34,7 +37,9 @@ public class Player : Singleton<Player>
         playerData = new PlayerData(Health); 
         stateMachine = new PlayerStateMachine(this);
 
-        target = stateMachine.Target; 
+        InitializeAnimationLengths();
+
+        target = stateMachine.Target;
     }
 
     private void Start()
@@ -53,5 +58,27 @@ public class Player : Singleton<Player>
     {
         Animator.SetTrigger("Die");
         enabled = false;
+    }
+
+    private void InitializeAnimationLengths()
+    {
+        AnimationClip[] clips = Animator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            animationLengths[clip.name] = clip.length;
+        }
+    }
+
+    public float GetAnimationLength(string animationName)
+    {
+        if (animationLengths.TryGetValue(animationName, out float length))
+        {
+            return length;
+        }
+        else
+        {
+            Debug.LogWarning("Animation not found: " + animationName);
+            return 0f;
+        }
     }
 }

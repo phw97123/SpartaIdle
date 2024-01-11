@@ -9,6 +9,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Target = GetClosestEnemy();
         StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
@@ -32,15 +33,23 @@ public class PlayerIdleState : PlayerBaseState
         //    }
         //}
 
-
         if (stateMachine.Target)
         {
-            if (!IsInAttackRange())
-                stateMachine.ChangeState(stateMachine.ChasingState);
-            else
-            {
-                stateMachine.ChangeState(stateMachine.AttackState);
-            }
+            stateMachine.Player.target = stateMachine.Target;
+            stateMachine.ChangeState(stateMachine.ChasingState);
         }
+        else
+            stateMachine.Target = GetClosestEnemy();
+
+
+        //if (stateMachine.Target)
+        //{
+        //    if (!IsInAttackRange())
+        //        stateMachine.ChangeState(stateMachine.ChasingState);
+        //    else
+        //    {
+        //        stateMachine.ChangeState(stateMachine.AttackState);
+        //    }
+        //}
     }
 }
