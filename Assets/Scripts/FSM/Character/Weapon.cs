@@ -14,7 +14,11 @@ public class Weapon : MonoBehaviour
 
         if (collision.TryGetComponent<Health>(out Health health))
         {
-            health.TakeDamage(damage);
+            if (health.TakeDamage(damage))
+            {
+                Player.instance.target = null;
+                Player.instance.stateMachine.Target = null;
+            }
             if (damage > 0 && knockbackForce > 0)
             {
                 //Knockback(collision.transform);

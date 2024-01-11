@@ -24,6 +24,7 @@ public class AttackRange : MonoBehaviour
         if (collision.transform.CompareTag("Enemy"))
         {
             monstersDetectedCount--;
+            player.IsAttackRange = monstersDetectedCount == 0 ? false : true;
         }
     }
 }

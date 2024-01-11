@@ -74,7 +74,7 @@ public class EnemyBaseState : IState
         if (stateMachine.Target.IsDead) return false;
 
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-        return enemyDistanceSqr <= 0.35f * 0.35f;
+        return enemyDistanceSqr <= 0.45f * 0.45f;
     }
 
     private void OnDead()

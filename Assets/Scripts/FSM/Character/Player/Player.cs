@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
         InitializeAnimationLengths();
 
-        target = stateMachine.Target; 
+        target = stateMachine.Target;
     }
 
     private void Start()

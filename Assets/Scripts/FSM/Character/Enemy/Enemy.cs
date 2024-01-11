@@ -32,9 +32,10 @@ public class Enemy : MonoBehaviour
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
         characterCollider = GetComponent<Collider2D>();
 
+        Health = GetComponent<Health>();
+
         stateMachine = new EnemyStateMachine(this);
 
-        Health = GetComponent<Health>();
 
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
@@ -56,7 +57,6 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health.Init();
-        characterCollider.enabled = true;
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
@@ -75,7 +75,6 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        characterCollider.enabled = false;
         StartCoroutine(Fadeout());
     }
 

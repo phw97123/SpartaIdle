@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
+    public float searchRadius = 10f; // 적을 찾을 반경
+
     public PlayerBaseState(PlayerStateMachine palyerStateMachine)
     {
         stateMachine = palyerStateMachine;
@@ -38,18 +40,19 @@ public class PlayerBaseState : IState
         //        stateMachine.Target = GetClosestEnemy();
         //}
 
-        if (stateMachine.Target == null || stateMachine.Target.IsDead || !IsInAttackRange())
-        {
-            stateMachine.Target = GetClosestEnemy();
-        }
-        
-        if(stateMachine.Target != null)
-        {
-            if (stateMachine.Target.IsDead)
-            {
-                stateMachine.Player.playerData.UpdateExp(20);
-            }
-        }
+        //if (stateMachine.Target == null || stateMachine.Target.IsDead || !IsInAttackRange())
+        //{
+        //    stateMachine.Target = GetClosestEnemy();
+        //}
+
+        //if (stateMachine.Target != null)
+        //{
+
+        //    if (stateMachine.Target.IsDead)
+        //    {
+        //        stateMachine.Player.playerData.UpdateExp(20);
+        //    }
+        //}
     }
 
     protected void StartAnimation(int animationHash)
@@ -112,36 +115,35 @@ public class PlayerBaseState : IState
 
     public Health GetClosestEnemy()
     {
-        Vector2 currentPosition = stateMachine.Player.transform.position;
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (targets.Length == 0)
-        {
-            return null;
-        }
+        Vector3 currentPosition = stateMachine.Player.transform.position;
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(currentPosition, searchRadius);
 
         GameObject closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (GameObject target in targets)
+        foreach (Collider2D hitCollider in hitColliders)
         {
-            Health enemyHealth = target.GetComponent<Health>();
-
-            if (enemyHealth.IsDead) continue;
-
-            float distance = Vector2.Distance(currentPosition, target.transform.position);
-
-            if (distance < closestDistance)
+            if (hitCollider.CompareTag("Enemy"))
             {
-                closestDistance = distance;
-                closestEnemy = target;
+                Health enemyHealth = hitCollider.GetComponent<Health>();
+
+                if (enemyHealth != null && !enemyHealth.IsDead)
+                {
+                    float distance = Vector2.Distance(currentPosition, hitCollider.transform.position);
+
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEnemy = hitCollider.gameObject;
+                    }
+                }
             }
         }
 
         if (closestEnemy == null) return null;
 
-        Vector2 direction = (closestEnemy.transform.position - stateMachine.Player.transform.position).normalized;
-        Rotate(direction);
-        return closestEnemy?.GetComponent<Health>();
+        Vector2 direction = (closestEnemy.transform.position - currentPosition).normalized;
+        Rotate(direction); // Rotate 함수를 필요에 따라 구현
+        return closestEnemy.GetComponent<Health>();
     }
 }
