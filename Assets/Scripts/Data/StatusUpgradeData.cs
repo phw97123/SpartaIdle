@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Numerics;
 
 public enum StatusType { Atk, Hp, Crit_ch, Crit_Dmg, Hp_Re, Atk_Big, Hp_Big, Mp, Mp_Re }

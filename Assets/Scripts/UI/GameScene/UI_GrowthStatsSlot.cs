@@ -26,13 +26,15 @@ public class UI_GrowthStatsSlot : UI_Base
 
         this.data = data;
         upgradeButton.onClick.AddListener(OnUpgradeButton);
+
+        iconImage.sprite = sprites[(int)data.baseSo.currencyType];
+        slotNameText.text = $"{data.baseSo.upgradeName}";
+
         UpdateSlotUI();
     }
 
     public void UpdateSlotUI()
     {
-        iconImage.sprite = sprites[(int)data.baseSo.currencyType];
-        slotNameText.text = $"{data.baseSo.upgradeName}";
         currentLevelText.text = $"Lv.{data.currentUpgradeLevel}";
         maxLevelText.text = $"Max Lv.{data.maxUpgradeLevel}";
         upgradePriceText.text = $"{data.upgradePrice}";

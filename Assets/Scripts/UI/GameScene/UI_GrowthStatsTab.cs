@@ -21,8 +21,6 @@ public class UI_GrowthStatsTab : UI_Base
     private List<UI_GrowthStatsSlot> slots = new List<UI_GrowthStatsSlot>();
     private bool isInit = false;
 
-    private int currentToggle = min; 
-
     public override void OpenUI()
     {
         base.OpenUI();
@@ -33,6 +31,7 @@ public class UI_GrowthStatsTab : UI_Base
 
     private void Init()
     {
+        isInit = true; 
         CreateSlot(StatusUpgradeManager.Instance.GetUpgradeDatas());
 
         minToggle.onValueChanged.AddListener((isOn) =>

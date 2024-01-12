@@ -3,14 +3,13 @@ using UnityEngine.UI;
 
 public class UI_GrowthPanel : UI_Base
 {
-    // TODO : Toggle 그룹 사용하기
     [SerializeField] private Toggle statsTab;
     [SerializeField] private Toggle Tab1;
     [SerializeField] private Toggle Tab2;
     [SerializeField] private Toggle Tab3;
     [SerializeField] private Toggle Tab4;
-    [SerializeField] private Button _closeButton;
-    [SerializeField] private Button _backgroundPanel;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private Button backgroundPanel;
 
     [SerializeField] private UI_GrowthStatsTab uiGrowthStatsTab; 
 
@@ -23,7 +22,7 @@ public class UI_GrowthPanel : UI_Base
             else uiGrowthStatsTab.CloseUI();
         });
 
-        _closeButton.onClick.AddListener(CloseUI); 
-        _backgroundPanel.onClick.AddListener(CloseUI);
+        closeButton.onClick.AddListener(CloseUI); 
+        backgroundPanel.onClick.AddListener(CloseUI);
     }
 }

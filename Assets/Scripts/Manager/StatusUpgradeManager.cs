@@ -11,10 +11,6 @@ public class StatusUpgradeManager : Singleton<StatusUpgradeManager>
         InitStatusUpgradeData(); 
     }
 
-    private void Start()
-    {
-    }
-
     public void InitStatusUpgradeData()
     {
         // Load
