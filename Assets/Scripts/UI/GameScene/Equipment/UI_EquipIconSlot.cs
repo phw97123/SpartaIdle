@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,18 +15,19 @@ public class UI_EquipIconSlot : UI_Base
     [SerializeField] private GameObject equipLabel;
     [SerializeField] private Text enhancementLevelText; 
 
-    private EquipmentData equipData;
+    public EquipmentData equipData;
+
+    public Action<EquipmentData> onSelectedSlot; 
 
     public void Init(EquipmentData data)
     {
-        this.equipData = data;
+        equipData = data;
         selectSlot.onValueChanged.AddListener(isOn =>
         {
-            // 선택 이미지
             if (isOn) checkIcon.gameObject.SetActive(true);
             else checkIcon.gameObject.SetActive(false);
-            // 선택 정보 띄우기 
-            //SelectedSlotInfo(); 
+
+           SelectedSlotInfo(); 
         });
 
         UpdateSlotUI(equipData); 
@@ -33,16 +35,18 @@ public class UI_EquipIconSlot : UI_Base
 
     public void UpdateSlotUI(EquipmentData data)
     {
-        rarityText.text = $"{data.baseSO.Name} {data.baseSO.Level}";
+        equipData = data;
+        rarityText.text = $"{data.baseSO.Rarity} {data.baseSO.Level}";
         icon.sprite = data.baseSO.IconSprite;
         background.color = data.baseSO.Color;
         valueText.text = $"{data.quantity}/4";
-        sliderbar.value = data.quantity / 4;
-        enhancementLevelText.text = $"Lv.{data.enhancementLevel}"; 
+        sliderbar.value = (float)data.quantity / 4f;
+        enhancementLevelText.text = $"Lv.{data.enhancementLevel}";
+        equipLabel.SetActive(data.OnEquipped);
     }
 
     public void SelectedSlotInfo()
     {
-
+        onSelectedSlot?.Invoke(equipData); 
     }
 }

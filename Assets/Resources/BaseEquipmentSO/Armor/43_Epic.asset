@@ -16,13 +16,15 @@ MonoBehaviour:
   iconSprite: {fileID: 21300000, guid: cd1793ac7def1461fbbc5dbbae7afe1a, type: 3}
   color: {r: 0.14761378, g: 0, b: 0.3962264, a: 1}
   quantity: 0
-  level: 1
+  level: 3
   onEquipped: 0
   type: 1
   rarity: 3
   enhancementLevel: 1
   baseOwnedEffect: 0
   baseEquippedEffect: 0
+  nextOwnedEffect: 0
+  nextEquippedEffect: 0
   increasePercentEffect: 0
   enhancementMaxLevel: 200
   onAwaken: 0

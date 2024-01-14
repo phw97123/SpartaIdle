@@ -17,12 +17,14 @@ MonoBehaviour:
   color: {r: 0.38823533, g: 0.38823533, b: 0.38823533, a: 1}
   quantity: 0
   level: 1
-  onEquipped: 1
+  onEquipped: 0
   type: 0
   rarity: 0
   enhancementLevel: 1
   baseOwnedEffect: 0
   baseEquippedEffect: 0
+  nextOwnedEffect: 0
+  nextEquippedEffect: 0
   increasePercentEffect: 0
   enhancementMaxLevel: 200
   onAwaken: 0

@@ -1,14 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.SubsystemsImplementation;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance; 
+    public static Player Instance;
     [SerializeField] public CharacterAnimationData AnimationData { get; private set; }
 
     [field: SerializeField] public PlayerSO Data { get; private set; }
 
-    public PlayerData playerData; 
+    public PlayerData playerData;
     public Animator Animator { get; private set; }
     public Rigidbody2D CharacterRigidbody2D { get; private set; }
 
@@ -19,16 +22,24 @@ public class Player : MonoBehaviour
     public GameObject closestEnemy = null;
     public Health Health { get; private set; }
 
-    public bool IsAttackRange {  get;  set; }
-    public bool isAttack; 
+    public bool IsAttackRange { get; set; }
+    public bool isAttack;
 
     public Health target;
 
     public Dictionary<string, float> animationLengths = new Dictionary<string, float>();
 
+
+    private EquipmentData equiped_Weapon = null;
+
+    private EquipmentData equiped_Armor = null;
+
+    public Action<EquipmentData> OnEquip;
+    public Action<EquipmentType> OnUnEquip;
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
 
         AnimationData = new CharacterAnimationData();
@@ -38,7 +49,7 @@ public class Player : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();
 
         Health = GetComponent<Health>();
-        playerData = new PlayerData(Health); 
+        playerData = new PlayerData(Health);
         stateMachine = new PlayerStateMachine(this);
 
         InitializeAnimationLengths();
@@ -50,6 +61,9 @@ public class Player : MonoBehaviour
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
+
+        OnEquip += Equip;
+        OnUnEquip += OnUnEquip;
     }
 
     private void Update()
@@ -83,6 +97,40 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("Animation not found: " + animationName);
             return 0f;
+        }
+    }
+
+    public void Equip(EquipmentData equipData)
+    {
+        switch (equipData.baseSO.EquipmentType)
+        {
+            case EquipmentType.Weapon:
+                UnEquip(equipData.baseSO.EquipmentType);
+                equiped_Weapon = equipData;
+                equiped_Weapon.OnEquipped = true;
+                break;
+            case EquipmentType.Armor:
+                UnEquip(equipData.baseSO.EquipmentType);
+                equiped_Armor = equipData;
+                equiped_Armor.OnEquipped = true;
+                break;
+        }
+    }
+
+    public void UnEquip(EquipmentType equipmentType)
+    {
+        switch (equipmentType)
+        {
+            case EquipmentType.Weapon:
+                if (equiped_Weapon == null) return;
+                equiped_Weapon.OnEquipped = false;
+                equiped_Weapon = null;
+                break;
+            case EquipmentType.Armor:
+                if (equiped_Armor == null) return;
+                equiped_Armor.OnEquipped = false;
+                equiped_Armor = null;
+                break;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Numerics;
 
 public enum CurrencyType
 {
-    Gold, Dia
+    Gold, Dia, EnhanceStone
 }
 
 [Serializable]

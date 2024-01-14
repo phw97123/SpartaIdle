@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
                 return null;
             }
             GameObject obj = Instantiate(prefab);
-            if(obj.TryGetComponent<T>(out T component))
+            if(!obj.TryGetComponent<T>(out T component))
             {
                 Debug.LogError($"Get UI Component ½ÇÆÐ : {key}");
                 return null; 

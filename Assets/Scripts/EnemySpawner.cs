@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
             enemy.SetActive(true);
             enemies.Add(enemy);
-            Debug.Log($"{enemies.Count} / {maxEnemies}"); 
+           // Debug.Log($"{enemies.Count} / {maxEnemies}"); 
             yield return spawnInterval; 
         }
     }

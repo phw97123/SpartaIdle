@@ -8,7 +8,6 @@ public class EnemyDeadState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("죽었닥 ");
         stateMachine.Target = null;
          Player.Instance.playerData.UpdateExp(20);
     }

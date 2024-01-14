@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a8cd6929115b24488790eada5dbf17, type: 3}
   m_Name: 11_Common
   m_EditorClassIdentifier: 
-  name: "\uC77C\uBC18"
+  name: "\uC77C\uBC181 \uBC29\uC5B4\uAD6C"
   iconSprite: {fileID: 21300000, guid: cd1793ac7def1461fbbc5dbbae7afe1a, type: 3}
   color: {r: 0.38823533, g: 0.38823533, b: 0.38823533, a: 1}
   quantity: 0
   level: 1
-  onEquipped: 1
+  onEquipped: 0
   type: 1
   rarity: 0
   enhancementLevel: 1
   baseOwnedEffect: 0
   baseEquippedEffect: 0
+  nextOwnedEffect: 0
+  nextEquippedEffect: 0
   increasePercentEffect: 0
   enhancementMaxLevel: 200
   onAwaken: 0
