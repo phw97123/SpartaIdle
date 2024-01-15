@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
+    private Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
     private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
-    public void Awake()
+    public Sprite LoadSprite(string name)
     {
+        if(!sprites.ContainsKey(name))
+        {
+            Sprite sprite = Resources.Load<Sprite>($"Sprites/{name}");
+            if(!sprite )
+            {
+                Debug.LogError($"Sprite 로드 실패 : {name}"); 
+                return null;
+            }
+            sprites.Add(name, sprite);
+        }
+        return sprites[name]; 
     }
-
+       
     public GameObject Instantiate(string name, Transform parent = null)
     {
         if(!prefabs.ContainsKey(name))

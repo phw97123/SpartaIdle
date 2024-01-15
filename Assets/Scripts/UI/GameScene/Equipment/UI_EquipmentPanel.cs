@@ -41,7 +41,7 @@ public class UI_EquipmentPanel : UI_Base
 
     private EquipmentManager equipmentManager;
 
-    private UI_EnhancePopup uiEnhancePopup; 
+    private UI_EnhancePopup uiEnhancePopup;
 
     public override void OpenUI()
     {
@@ -85,7 +85,7 @@ public class UI_EquipmentPanel : UI_Base
         slots[0].selectSlot.isOn = true;
 
         uiEnhancePopup = UIManager.Instance.GetUIComponent<UI_EnhancePopup>();
-        uiEnhancePopup.OnClosed += OnEnhancePanelClose; 
+        uiEnhancePopup.OnClosed += OnEnhancePanelClose;
         InitBtnEvent();
     }
 
@@ -98,7 +98,7 @@ public class UI_EquipmentPanel : UI_Base
         autoEquipBtn.onClick.AddListener(OnAutoEquipBtn);
         compositeBtn.onClick.AddListener(OnCompositeBtn);
         allCompositeBtn.onClick.AddListener(OnAllCompositeBtn);
-        enhancePanelBtn.onClick.AddListener(OnEnhancePanelBtn); 
+        enhancePanelBtn.onClick.AddListener(OnEnhancePanelBtn);
     }
 
     private void CreateSlot(List<EquipmentData> datas)
@@ -125,7 +125,7 @@ public class UI_EquipmentPanel : UI_Base
 
         foreach (var slot in slots)
         {
-            if (slot.equipData.OnEquipped)
+            if (slot.equipData.isEquipped)
             {
                 selectedData = slot.equipData;
                 slot.selectSlot.isOn = true;
@@ -140,22 +140,37 @@ public class UI_EquipmentPanel : UI_Base
     private void SelectSlotInfo(EquipmentData data)
     {
         selectedData = data;
-        equipmentName.text = data.baseSO.Name;
+        equipmentName.text = data.name;
         currentSlot.UpdateSlotUI(data);
         currentLevel.text = data.enhancementLevel.ToString();
-        equipmentEffect.text = data.baseSO.EquipmentType == EquipmentType.Weapon ? $"피해량 +{data.equippedEffect}%" : $"체력 +{data.equippedEffect}%";
-        ownedEffect.text = data.baseSO.EquipmentType == EquipmentType.Weapon ? $"피해량 +{data.ownedEffect}%" : $"체력 +{data.ownedEffect}%";
-        nextEquipmentEffect.text = data.baseSO.EquipmentType == EquipmentType.Weapon ? $"피해량 +{data.equippedEffect}%" : $"체력 +{data.nextEquippedEffect}%";
-        nextOwnedEffect.text = data.baseSO.EquipmentType == EquipmentType.Weapon ? $"피해량 +{data.nextOwnedEffect}%" : $"체력 +{data.nextOwnedEffect}%";
 
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        switch (data.type)
+        {
+            case EquipmentType.Weapon:
+                equipmentEffect.text = $"피해량+{data.equippedEffect}%";
+                nextEquipmentEffect.text = $"피해량+{data.equippedEffect + data.baseEquippedEffect}%";
+
+                ownedEffect.text = $"피해량+{data.ownedEffect}%";
+                nextOwnedEffect.text = $"피해량+{data.ownedEffect + data.baseOwnedEffect}%";
+                break;
+
+            case EquipmentType.Armor:
+                equipmentEffect.text = $"체력+{data.equippedEffect}%";
+                nextEquipmentEffect.text = $"체력+{data.equippedEffect + data.baseEquippedEffect}%";
+
+                ownedEffect.text = $"체력+{data.ownedEffect}%";
+                nextOwnedEffect.text = $"체력+{data.ownedEffect + data.baseOwnedEffect}%";
+                break;
+        }
+
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     private void OnEquipBtn()
     {
         Player.Instance.OnEquip?.Invoke(selectedData);
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     void SetOnEquippedBtnUI(bool IsEquipped)
@@ -166,43 +181,43 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnUnEquipBtn()
     {
-        Player.Instance.OnUnEquip?.Invoke(selectedData.baseSO.EquipmentType);
-        selectedData.OnEquipped = false;
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        Player.Instance.OnUnEquip?.Invoke(selectedData.type);
+        selectedData.isEquipped = false;
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     private void OnAutoEquipBtn()
     {
-        EquipmentData data = equipmentManager.AutoEquip(selectedData.baseSO.EquipmentType);
+        EquipmentData data = equipmentManager.AutoEquip(selectedData.type);
         Player.Instance.OnEquip?.Invoke(data);
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     private void OnEnhancePanelBtn()
     {
-        uiEnhancePopup.OpenUI(); 
-        uiEnhancePopup.UpdateUI(selectedData); 
+        uiEnhancePopup.OpenUI();
+        uiEnhancePopup.UpdateUI(selectedData);
     }
 
     private void OnEnhancePanelClose()
     {
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     private void OnCompositeBtn()
     {
         equipmentManager.Composite(selectedData);
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 
     private void OnAllCompositeBtn()
     {
-        equipmentManager.AllComposite(selectedData.baseSO.EquipmentType);
-        AllSlotUpdate(selectedData.baseSO.EquipmentType);
-        SetOnEquippedBtnUI(selectedData.OnEquipped);
+        equipmentManager.AllComposite(selectedData.type);
+        AllSlotUpdate(selectedData.type);
+        SetOnEquippedBtnUI(selectedData.isEquipped);
     }
 }

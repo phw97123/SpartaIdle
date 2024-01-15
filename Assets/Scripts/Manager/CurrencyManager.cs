@@ -16,9 +16,12 @@ public class CurrencyManager : Singleton<CurrencyManager>
     {
         CurrencyData gold = new CurrencyData(CurrencyType.Gold,"10000");
         CurrencyData dia = new CurrencyData(CurrencyType.Dia,"10000");
+        CurrencyData enhanceStone = new CurrencyData(CurrencyType.EnhanceStone, "10000"); 
 
         currencyDatas.Add(gold); 
         currencyDatas.Add(dia);
+        currencyDatas.Add(enhanceStone);
+
         // TODO : Save, Load ÇÊ¿ä
         foreach (CurrencyData currencyData in currencyDatas)
         {

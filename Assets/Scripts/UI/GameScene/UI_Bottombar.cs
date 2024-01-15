@@ -14,6 +14,7 @@ public class UI_Bottombar : UI_Base
 
     private UI_GrowthPanel uiGrowthPanel; 
     private UI_EquipmentPanel uiEquipmentPanel;
+    private UI_SummonPanel uiSummonPanel;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class UI_Bottombar : UI_Base
 
         growthButton.onClick.AddListener(OnGrowthPanel);
         equipmentButton.onClick.AddListener(OnEquipmentPanel); 
+        summonButton.onClick.AddListener(OnSummonPanel);
     }
 
     private void OnGrowthPanel()
@@ -33,5 +35,11 @@ public class UI_Bottombar : UI_Base
     {
         if(uiManager.TryGetUIComponent<UI_EquipmentPanel>(out uiEquipmentPanel))
             uiEquipmentPanel.OpenUI();
+    }
+
+    private void OnSummonPanel()
+    {
+        if(uiManager.TryGetUIComponent<UI_SummonPanel>(out uiSummonPanel))
+            uiSummonPanel.OpenUI();
     }
 }

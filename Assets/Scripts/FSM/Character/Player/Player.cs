@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.SubsystemsImplementation;
 
 public class Player : MonoBehaviour
 {
@@ -102,17 +100,17 @@ public class Player : MonoBehaviour
 
     public void Equip(EquipmentData equipData)
     {
-        switch (equipData.baseSO.EquipmentType)
+        switch (equipData.type)
         {
             case EquipmentType.Weapon:
-                UnEquip(equipData.baseSO.EquipmentType);
+                UnEquip(equipData.type);
                 equiped_Weapon = equipData;
-                equiped_Weapon.OnEquipped = true;
+                equiped_Weapon.isEquipped = true;
                 break;
             case EquipmentType.Armor:
-                UnEquip(equipData.baseSO.EquipmentType);
+                UnEquip(equipData.type);
                 equiped_Armor = equipData;
-                equiped_Armor.OnEquipped = true;
+                equiped_Armor.isEquipped = true;
                 break;
         }
     }
@@ -123,12 +121,12 @@ public class Player : MonoBehaviour
         {
             case EquipmentType.Weapon:
                 if (equiped_Weapon == null) return;
-                equiped_Weapon.OnEquipped = false;
+                equiped_Weapon.isEquipped = false;
                 equiped_Weapon = null;
                 break;
             case EquipmentType.Armor:
                 if (equiped_Armor == null) return;
-                equiped_Armor.OnEquipped = false;
+                equiped_Armor.isEquipped = false;
                 equiped_Armor = null;
                 break;
         }

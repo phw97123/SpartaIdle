@@ -36,13 +36,13 @@ public class UI_EquipIconSlot : UI_Base
     public void UpdateSlotUI(EquipmentData data)
     {
         equipData = data;
-        rarityText.text = $"{data.baseSO.Rarity} {data.baseSO.Level}";
-        icon.sprite = data.baseSO.IconSprite;
-        background.color = data.baseSO.Color;
+        rarityText.text = $"{EquipmentManager.Instance.ChangeClassName(data.rarity)} {data.level}";
+        icon.sprite = data.icon;
+        background.color = data.myColor; 
         valueText.text = $"{data.quantity}/4";
         sliderbar.value = (float)data.quantity / 4f;
         enhancementLevelText.text = $"Lv.{data.enhancementLevel}";
-        equipLabel.SetActive(data.OnEquipped);
+        equipLabel.SetActive(data.isEquipped);
     }
 
     public void SelectedSlotInfo()

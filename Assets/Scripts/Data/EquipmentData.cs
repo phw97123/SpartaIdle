@@ -1,7 +1,4 @@
-
-using System.Buffers.Text;
-using System.Numerics;
-using UnityEditor.Recorder.FrameCapturer;
+using UnityEngine;
 
 public enum EquipmentType
 {
@@ -12,7 +9,6 @@ public enum EquipmentType
 public enum Rarity
 {
     Common,
-    Uncommon,
     Rare,
     Epic,
     Ancient,
@@ -24,44 +20,52 @@ public enum Rarity
 public class EquipmentData 
 {
     // TODO : 데이터 정리 -> 중복, 필요없는 데이터 지우기 
-    public BaseEquipmentSO baseSO;
+    // public BaseEquipmentSO baseSO;
+
+    public string name;
+    public Sprite icon; 
     public int quantity;
     public int level;
-    public bool OnEquipped;
+    public bool isEquipped;
+    public EquipmentType type;
+    public Rarity rarity; 
     public int enhancementLevel;
+    public int baseOwnedEffect;
+    public int baseEquippedEffect;
     public int ownedEffect;
     public int equippedEffect;
-    public int nextOwnedEffect;
-    public int nextEquippedEffect;
-    public bool OnAwaken;
-    public int enhanceStoneCost;
+    public int enhancementMaxLevel = 1000;
+    public Color myColor; 
 
-    public EquipmentData (BaseEquipmentSO baseSO)
+    public EquipmentData (string name, Sprite icon,int level, EquipmentType type, Rarity rarity, int baseOwnedEffect, int baseEquippedEffect,Color myColor)
     {
-        this.baseSO = baseSO;
-        quantity = this.baseSO.Quantity;
-        level = this.baseSO.Level;
-        OnEquipped = this.baseSO.OnEquipped;
-        enhancementLevel = this.baseSO.EnhancementLevel;
-        ownedEffect = this.baseSO.BaseOwnedEffect;
-        equippedEffect = this.baseSO.BaseEquippedEffect;
-        nextOwnedEffect = this.baseSO.NextOwnedEffect;
-        nextEquippedEffect = this.baseSO.NextEquippedEffect;
-        OnAwaken = this.baseSO.OnAwaken;
-        enhanceStoneCost = this.baseSO.EnhanceStoneCost;
+        quantity = 0;
+        isEquipped = false;
+        enhancementLevel = 1;   
+
+        this.name = name; 
+        this.icon = icon;
+        this.level = level;
+        this.type = type;
+        this.rarity = rarity;
+        this.baseOwnedEffect = baseOwnedEffect;
+        this.baseEquippedEffect = baseEquippedEffect; 
+        this.myColor = myColor;
+
+        ownedEffect = baseOwnedEffect;
+        equippedEffect = baseEquippedEffect;
     }
 
     public virtual void Enhance()
     {
-        equippedEffect += baseSO.BaseOwnedEffect;
-        ownedEffect += baseSO.BaseOwnedEffect;
-
+        equippedEffect += baseEquippedEffect;
+        ownedEffect += baseOwnedEffect;
         enhancementLevel++;
     }
 
     public int GetEnhanceStone()
     {
-        var requipredEnhanceStone = equippedEffect - baseSO.BaseOwnedEffect;
+        var requipredEnhanceStone = equippedEffect - baseOwnedEffect;
         return requipredEnhanceStone;
     }
 }

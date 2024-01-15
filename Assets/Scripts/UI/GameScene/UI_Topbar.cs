@@ -19,7 +19,7 @@ public class UI_Topbar : MonoBehaviour
 
     private void Awake()
     {
-       currencyManager = CurrencyManager.Instance; 
+        currencyManager = CurrencyManager.Instance;
     }
     private void Start()
     {
@@ -29,6 +29,7 @@ public class UI_Topbar : MonoBehaviour
 
         foreach (CurrencyData currencyData in currencyManager.currencyDatas)
         {
+            if (currencyData.currencyType == CurrencyType.EnhanceStone) continue; 
             UpdatecurrencyUI(currencyData.currencyType, currencyData.amount);
         }
     }
@@ -37,23 +38,23 @@ public class UI_Topbar : MonoBehaviour
     {
         playerData.OnExpChanged += UpdatePlayerInfoUI;
         playerData.OnLevelChanged += UpdatePlayerInfoUI;
-        currencyManager.OnCurrencyChanged += UpdatecurrencyUI; 
+        currencyManager.OnCurrencyChanged += UpdatecurrencyUI;
     }
 
     public void UpdatePlayerInfoUI()
     {
         nameText.text = $"{playerData.name}";
-        iconImage = playerData.iconImage; 
+        iconImage = playerData.iconImage;
         levelText.text = $"Lv.{playerData.level}";
 
-        float percentage = (float)playerData.currentExp / playerData.maxExp *100; 
+        float percentage = (float)playerData.currentExp / playerData.maxExp * 100;
         expPercentageText.text = $"EXP {percentage:F2}%";
-        expSlider.value = percentage /100;
+        expSlider.value = percentage / 100;
     }
 
     public void UpdatecurrencyUI(CurrencyType type, string amount)
     {
         CurrencyData currency = currencyManager.currencyDatas.Find(c => c.currencyType == type);
-        currencyText[(int)type].text = amount; 
+        currencyText[(int)type].text = amount;
     }
 }
