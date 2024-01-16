@@ -10,7 +10,7 @@ public class SummonData
     public Action<int, int> OnExpChanged;
     public Action<int> OnLevelChanged;
 
-    public SummonType Type;
+    public SummonType type;
     public int summonCurrentExp = 0;
     public int summonMaxExp = 100;
     public int summonLevel = 1;
@@ -20,7 +20,7 @@ public class SummonData
 
     public SummonData(SummonType type)
     {
-        this.Type = type;
+        this.type = type;
     }
 
     public void UpdateExp(int addValue)
@@ -41,7 +41,7 @@ public class SummonData
         OnLevelChanged?.Invoke(summonLevel);
     }
 
-    public string GetTypeName(SummonType type)
+    public string GetTypeName()
     {
         switch(type)
         {

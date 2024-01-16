@@ -13,4 +13,9 @@ public class UI_EquipmentIconSlot : UI_Base
         icon.sprite = data.icon;
         background.color = data.myColor;
     }
+
+    public void ResetSlot()
+    {
+        gameObject.SetActive(false);     
+    }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e4d2b560e6642b0134f82bb021ca, type: 3}
+  m_Name: EquipmentSO
+  m_EditorClassIdentifier: 
+  probabilities:
+  - probabilityArray: bc020000de0000003c000000120000000000000000000000
+  - probabilityArray: 6c020000040100005a0000001e0000000000000000000000
+  - probabilityArray: 260200002c010000680000002e0000000000000000000000
+  - probabilityArray: f40100002c01000084000000360000000e00000000000000
+  - probabilityArray: c20100002c010000a50000003e0000001700000000000000
+  - probabilityArray: 5e01000018010000f0000000550000002d00000000000000
+  - probabilityArray: fa000000fa0000002c010000870000003e00000003000000
+  - probabilityArray: 96000000c80000005e010000c70000005f00000006000000
+  - probabilityArray: 00000000c800000090010000fa0000008d00000009000000
+  - probabilityArray: 00000000c80000005e010000fa000000bd0000000b000000

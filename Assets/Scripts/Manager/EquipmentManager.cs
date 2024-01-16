@@ -9,6 +9,9 @@ public class EquipmentManager : Singleton<EquipmentManager>
     List<EquipmentData> armorList;
 
     private Dictionary<EquipmentType, List<EquipmentData>> equipmentDatas;
+
+    private static Dictionary<string, EquipmentData> allEquipment = new Dictionary<string, EquipmentData>();
+
     EquipmentType[] equipmentTypes = { EquipmentType.Weapon, EquipmentType.Armor };
     Rarity[] rarities = { Rarity.Common, Rarity.Rare, Rarity.Epic, Rarity.Ancient, Rarity.Legendary, Rarity.Mythology };
     Color[] colors = { Color.gray, Color.green,  Color.blue, Color.yellow, Color.magenta, Color.red };
@@ -42,7 +45,7 @@ public class EquipmentManager : Singleton<EquipmentManager>
             for (int level = 1; level <= maxLevel; level++)
             {
                 // 11_Weapon_Common
-                string name = $"{rarityIntValue}{level}_{EquipmentType.Weapon}_{rarity}";
+                string name = $"{rarityIntValue+1}{level}_{EquipmentType.Weapon}_{rarity}";
 
                 int equippedEffect = level * ((int)Mathf.Pow(10, rarityIntValue + 1));
 
@@ -51,6 +54,7 @@ public class EquipmentManager : Singleton<EquipmentManager>
                 Sprite icon = ResourceManager.Instance.LoadSprite($"Weapon/spear_{weaponCount}");
                 EquipmentData data = new EquipmentData(name, icon, level, EquipmentType.Weapon, rarity, owedEffect, equippedEffect, colors[rarityIntValue]);
                 weaponList.Add(data);
+                allEquipment.Add(name, data); 
                 weaponCount++;
             }
         }
@@ -69,12 +73,13 @@ public class EquipmentManager : Singleton<EquipmentManager>
             for (int level = 1; level <= maxLevel; level++)
             {
                 // 11_Armor_Common
-                string name = $"{rarityIntValue}{level}_{EquipmentType.Armor}_{rarity}";
+                string name = $"{rarityIntValue+1}{level}_{EquipmentType.Armor}_{rarity}";
                 int equippedEffect = level * ((int)Mathf.Pow(10, rarityIntValue + 1));
                 int owedEffect = (int)(equippedEffect * 0.5f);
                 Sprite icon = ResourceManager.Instance.LoadSprite($"Armor/armor_{armorCount}");
                 EquipmentData data = new EquipmentData(name, icon, level, EquipmentType.Armor, rarity, owedEffect, equippedEffect, colors[rarityIntValue]);
                 armorList.Add(data);
+                allEquipment.Add(name, data);
                 armorCount++;
             }
         }
@@ -167,5 +172,18 @@ public class EquipmentManager : Singleton<EquipmentManager>
                 return "Ω≈»≠"; 
         }
         return null; 
+    }
+
+    public EquipmentData GetEquipment(string equipmentName)
+    {
+        if (allEquipment.TryGetValue(equipmentName, out EquipmentData equipment))
+        {
+            return equipment;
+        }
+        else
+        {
+            Debug.LogError($"Equipment not found: {equipmentName}");
+            return null;
+        }
     }
 }

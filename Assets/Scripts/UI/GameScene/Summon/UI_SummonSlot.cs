@@ -19,13 +19,20 @@ public class UI_SummonSlot : UI_Base
     private int number = 1;
 
     private CurrencyManager currencyManager;
+    private UIManager uiManager; 
+
+    private UI_SummonPopup uiSummonPopup; 
 
     public void Init(SummonData data)
     {
         currencyManager = CurrencyManager.Instance;
+        uiManager = UIManager.Instance; 
+
         summonData = data;
         InitBtnEvent();
         UpdateSlotUI(); 
+
+        uiSummonPopup = uiManager.GetUIComponent<UI_SummonPopup>();
     }
 
     private void InitBtnEvent()
@@ -36,7 +43,7 @@ public class UI_SummonSlot : UI_Base
 
     public void UpdateSlotUI()
     {
-        slotType.text = $"{summonData.GetTypeName(summonData.Type)} 소환";
+        slotType.text = $"{summonData.GetTypeName()} 소환";
         slotLevel.text = $"Lv.{summonData.summonLevel}";
         summonExpBar.value = (float)summonData.summonCurrentExp / summonData.summonMaxExp;
         summonExpText.text = $"{summonData.summonCurrentExp}/{summonData.summonMaxExp}";
@@ -62,7 +69,10 @@ public class UI_SummonSlot : UI_Base
 
     private void OnSummonButton()
     {
-
+        // 재화 확인 
+        uiSummonPopup.OpenUI();
+        uiSummonPopup.UpdateUI(summonData);
+        uiSummonPopup.OnSummon(summonData, number); 
     }
 
     private void OnPercentageInfoButton()
