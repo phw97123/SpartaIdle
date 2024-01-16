@@ -24,7 +24,8 @@ public class UI_SummonSlot : UI_Base
     {
         currencyManager = CurrencyManager.Instance;
         summonData = data;
-        InitBtnEvent(); 
+        InitBtnEvent();
+        UpdateSlotUI(); 
     }
 
     private void InitBtnEvent()
@@ -59,12 +60,12 @@ public class UI_SummonSlot : UI_Base
         summonPriceText.text = $"{500 * number}";
     }
 
-    private void OnPercentageInfoButton()
+    private void OnSummonButton()
     {
 
     }
 
-    private void OnSummonButton()
+    private void OnPercentageInfoButton()
     {
 
     }

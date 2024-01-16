@@ -54,7 +54,10 @@ public class UI_Topbar : MonoBehaviour
 
     public void UpdatecurrencyUI(CurrencyType type, string amount)
     {
-        CurrencyData currency = currencyManager.currencyDatas.Find(c => c.currencyType == type);
-        currencyText[(int)type].text = amount;
+        if (type == CurrencyType.Gold || type == CurrencyType.Dia)
+        {
+            CurrencyData currency = currencyManager.currencyDatas.Find(c => c.currencyType == type);
+            currencyText[(int)type].text = amount;
+        }
     }
 }
