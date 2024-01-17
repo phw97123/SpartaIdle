@@ -64,7 +64,7 @@ public class EnemyBaseState : IState
 
     private float GetMovementSpeed()
     {
-        // TODO : Ä³¸¯ÅÍ ½ºÅÝ ¸¸µé¾îÁö¸é Á¤È®ÇÑ ¼Óµµ ³Ö±â 
+        // TODO : Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½ï¿½ ï¿½Óµï¿½ ï¿½Ö±ï¿½ 
         float movementSpeed = stateMachine.MovementSpeed;
         return movementSpeed;
     }
@@ -74,7 +74,7 @@ public class EnemyBaseState : IState
         if (stateMachine.Target.IsDead) return false;
 
         float enemyDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-        return enemyDistanceSqr <= 0.55f * 0.55f;
+        return enemyDistanceSqr <= 0.45f * 0.45f;
     }
 
     private void OnDead()

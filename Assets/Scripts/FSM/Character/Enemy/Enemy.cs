@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer[] allSpriteRenderer;
     [SerializeField] private Sprite[] initialSpriteRenderer;
 
+    [SerializeField] private CapsuleCollider2D attackCol;
+
     private Color[] spriteColors;
 
     private void Awake()
@@ -32,9 +34,10 @@ public class Enemy : MonoBehaviour
         CharacterRigidbody2D = GetComponent<Rigidbody2D>();
         characterCollider = GetComponent<Collider2D>();
 
+        Health = GetComponent<Health>();
+
         stateMachine = new EnemyStateMachine(this);
 
-        Health = GetComponent<Health>();
 
         stateMachine.ChangeState(stateMachine.IdleState);
         Health.OnDie += OnDie;
@@ -56,7 +59,8 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health.Init();
-        characterCollider.enabled = true;
+        attackCol.gameObject.SetActive(true);
+
 
         for (int i = 0; i < allSpriteRenderer.Length; i++)
         {
@@ -75,7 +79,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        characterCollider.enabled = false;
+        attackCol.gameObject.SetActive(false);
         StartCoroutine(Fadeout());
     }
 

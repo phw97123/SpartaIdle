@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] Transform[] spawnPostions; 
     public EnemyPool enemyPool;
     private WaitForSeconds spawnInterval = new WaitForSeconds(.5f);
-    private int maxEnemies = 100;
+    private int maxEnemies = 50;
 
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -27,18 +27,12 @@ public class EnemySpawner : MonoBehaviour
             enemy.GetComponent<Enemy>().Init();
 
             Health health = enemy.GetComponent<Health>();
-            health.OnDie -= OnSpawnEnemyDead; 
-            health.OnDie += OnSpawnEnemyDead;
+
 
             enemy.SetActive(true);
             enemies.Add(enemy);
-            Debug.Log($"{enemies.Count} / {maxEnemies}"); 
+           // Debug.Log($"{enemies.Count} / {maxEnemies}"); 
             yield return spawnInterval; 
         }
-    }
-
-    private void OnSpawnEnemyDead()
-    {
-        Player.instance.playerData.UpdateExp(20);
     }
 }

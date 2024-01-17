@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64508eca84b274340acc9e58d1525054, type: 3}
+  m_Name: 9_Mp_Re
+  m_EditorClassIdentifier: 
+  statusType: 8
+  dataType: 0
+  currencyType: 1
+  upgradeName: "\uB0B4\uACF5 \uD68C\uBCF5 \uC99D\uAC00"
+  baseUpgradeLevel: 1
+  maxUpgradeLevel: 100
+  baseUpgradePrice: 400
+  pricePercent: 0
+  upgradeValue: 1
+  increase: 1
+  percentUpgradeValue: 0
+  percentIncrease: 0

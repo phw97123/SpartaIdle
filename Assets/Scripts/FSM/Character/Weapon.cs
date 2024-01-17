@@ -12,11 +12,29 @@ public class Weapon : MonoBehaviour
         if (collision == thisCollider) return;
         if(thisCollider.CompareTag(collision.tag)) return;
 
-        if (collision.TryGetComponent<Health>(out Health health))
+        if (collision.tag == "Enemy")
         {
-            health.TakeDamage(damage);
+            if (collision.transform.parent.TryGetComponent<Health>(out Health enemyHealth))
+            {
+                if (enemyHealth.TakeDamage(damage))
+                {
+                    Player.Instance.target = null;
+                    Player.Instance.stateMachine.Target = null;
+                }
+            }
+        }
+
+        else if (collision.TryGetComponent<Health>(out Health playerHealth))
+        {
+            if (playerHealth.TakeDamage(damage))
+            {
+                Player.Instance.target = null;
+                Player.Instance.stateMachine.Target = null;
+            }
             if (damage > 0 && knockbackForce > 0)
-                Knockback(collision.transform);
+            {
+                //Knockback(collision.transform);
+            }
         }
     }
 

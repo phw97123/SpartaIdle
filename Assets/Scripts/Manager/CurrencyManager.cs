@@ -1,25 +1,33 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
 using System.Numerics;
-using UnityEngine;
-using UnityEngine.Rendering;
 
-public class CurrencyManager : MonoBehaviour
+public class CurrencyManager : Singleton<CurrencyManager>
 {
-    public static CurrencyManager instance;
-
     public event Action<CurrencyType, string> OnCurrencyChanged;
-    public List<CurrencyData> currencyDatas= new List<CurrencyData>();
+    public List<CurrencyData> currencyDatas = new List<CurrencyData>();
 
     private void Awake()
     {
-        instance = this; 
+        Init(); 
     }
 
-    // TODO : Init
+    public void Init()
+    {
+        CurrencyData gold = new CurrencyData(CurrencyType.Gold,"10000");
+        CurrencyData dia = new CurrencyData(CurrencyType.Dia,"10000");
+        CurrencyData enhanceStone = new CurrencyData(CurrencyType.EnhanceStone, "10000"); 
+
+        currencyDatas.Add(gold); 
+        currencyDatas.Add(dia);
+        currencyDatas.Add(enhanceStone);
+
+        // TODO : Save, Load 필요
+        foreach (CurrencyData currencyData in currencyDatas)
+        {
+            OnCurrencyChanged?.Invoke(currencyData.currencyType, currencyData.amount);
+        }
+    }
 
     public void AddCurrency(CurrencyType currencyType, BigInteger value)
     {
@@ -48,16 +56,15 @@ public class CurrencyManager : MonoBehaviour
         }
         return false; 
     }
-
+    
     public string GetCurrencyAmount(CurrencyType type)
     {
         CurrencyData data = currencyDatas.Find(c=>c.currencyType == type);
         return data?.amount ?? "0"; 
     }
 
-    public void UpdateCurrencyUI(CurrencyType type, string amount)
+    public void ToStringBigInteger(BigInteger biginteger)
     {
-        CurrencyData data = currencyDatas.Find(c => c.currencyType == type); 
-        //currencyDatas.
+        // TODO : 한국 단위로 변경하는 메서드, 유틸로 이동 
     }
 }

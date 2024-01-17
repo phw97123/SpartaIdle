@@ -42,9 +42,9 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
-        if (health == 0) return;
+        if (health == 0) return true;
         health = Mathf.Max(health - damage, 0);
 
         if (damage > 0)
@@ -57,7 +57,12 @@ public class Health : MonoBehaviour
         }
 
         if (health == 0)
+        {
             OnDie?.Invoke();
+            return true;
+        }
+
+        return false;
     }
 
     private IEnumerator TakeDamageColor()

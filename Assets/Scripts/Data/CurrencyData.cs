@@ -1,10 +1,12 @@
+using System;
 using System.Numerics;
 
 public enum CurrencyType
 {
-    Gold, Dia
+    Gold, Dia, EnhanceStone
 }
 
+[Serializable]
 public class CurrencyData
 {
     public CurrencyType currencyType;
@@ -16,7 +18,7 @@ public class CurrencyData
         currentAmount += value;
         amount = currentAmount.ToString();
     }
-
+ 
     public bool Subtract(BigInteger value)
     {
         BigInteger currentAmout = new BigInteger(int.Parse(amount));
