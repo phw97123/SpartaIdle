@@ -5226,7 +5226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7679509154555562953}
   - component: {fileID: 7936201407455753363}
-  - component: {fileID: 834194794532494125}
+  - component: {fileID: 1568159598628019091}
   m_Layer: 12
   m_Name: AttackedPosition
   m_TagString: AttackedPosition
@@ -5284,7 +5284,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.02}
   m_Size: {x: 0.2, y: 0.35}
   m_Direction: 0
---- !u!114 &834194794532494125
+--- !u!114 &1568159598628019091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5293,10 +5293,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6826666826367643692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7ca7d66c06de043bfac6b7ac175369, type: 3}
+  m_Script: {fileID: 11500000, guid: 17395f4e519363a4a840b7045b163582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 5326630642377023026}
   enemyCount: 0
 --- !u!1 &6969171270163757571
 GameObject:
@@ -5782,7 +5782,6 @@ MonoBehaviour:
   - {fileID: 153098794200120014}
   - {fileID: 3116314473265740598}
   shadowSprite: {fileID: 3116314473265740598}
-  initialSpriteRenderer: []
   hitEffect: {fileID: 2104585272779739884}
   deathEffect: {fileID: 1337218446615561307}
   FSM: {fileID: 0}

@@ -7,6 +7,15 @@ public class Monster : Character
     [SerializeField] ParticleSystem deathEffect; 
     [SerializeField] MonsterFSM FSM;
 
+    public override void Init()
+    {
+        base.Init();
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = prevColor[i];
+        }
+    }
+
     public override bool TakeDamage(float value)
     {
         hitEffect.Play();

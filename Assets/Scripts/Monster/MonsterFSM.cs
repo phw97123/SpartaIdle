@@ -22,7 +22,7 @@ public class MonsterFSM : MonoBehaviour
 
     private void Start()
     {
-        deathDelay = new WaitForSeconds(1);
+        deathDelay = new WaitForSeconds(2);
     }
 
     private void Update()
@@ -96,8 +96,7 @@ public class MonsterFSM : MonoBehaviour
 
     IEnumerator Death()
     {
-
         yield return deathDelay;
-        monster.gameObject.SetActive(false);
+        FSM.ChangeState(Enums.StateEnum.Spawn);
     }
 }

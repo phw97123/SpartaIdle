@@ -6,8 +6,8 @@ public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] Transform[] spawnPostions; 
     public MonsterPool enemyPool;
-    private WaitForSeconds spawnInterval = new WaitForSeconds(1f);
-    private int maxMonsters = 10;
+    private WaitForSeconds spawnInterval = new WaitForSeconds(.5f);
+    private int maxMonsters = 30;
 
     public List<GameObject> monsterList = new List<GameObject>();
 
@@ -24,7 +24,7 @@ public class MonsterSpawner : MonoBehaviour
             int randomPosition = Random.Range(0,spawnPostions.Length );
             Transform spawnPosition = spawnPostions[randomPosition];
             monster.transform.position = spawnPosition.position;
-           monster.GetComponent<Monster>().Init();
+            monster.GetComponent<Monster>().Init();
 
             monster.SetActive(true);
             monsterList.Add(monster);

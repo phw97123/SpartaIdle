@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackRange : MonoBehaviour
@@ -14,19 +12,19 @@ public class AttackRange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(character.EnemyTag))
+        if (collision.CompareTag(character.EnemyTag))
         {
             enemyCount++;
-            character.isAttacking = enemyCount == 0? false: true;
+            character.isAttacking = enemyCount == 0 ? false : true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag(character.EnemyTag))
+        if (collision.CompareTag(character.EnemyTag))
         {
             enemyCount--;
-            character.isAttacking = enemyCount == 0? false: true;
+            character.isAttacking = enemyCount == 0 ? false : true;
         }
     }
 }

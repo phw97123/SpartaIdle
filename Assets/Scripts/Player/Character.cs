@@ -24,11 +24,7 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         InitializeAnimationLengths();
-        currentHealth = maxHealth; 
-    }
-
-    private void Start()
-    {
+        currentHealth = maxHealth;
         prevColor = new Color[spriteRenderers.Length];
         damageColor = new Color32(150, 0, 24, 255);
 
@@ -40,13 +36,22 @@ public class Character : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //prevColor = new Color[spriteRenderers.Length];
+        //damageColor = new Color32(150, 0, 24, 255);
+
+        //initialSprite = new Sprite[spriteRenderers.Length];
+        //for (int i = 0; i < spriteRenderers.Length; i++)
+        //{
+        //    initialSprite[i] = spriteRenderers[i].sprite;
+        //    prevColor[i] = spriteRenderers[i].color;
+        //}
+    }
+
     public virtual void Init()
     {
         currentHealth = maxHealth;
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
-            spriteRenderers[i].color = prevColor[i];
-        }
     }
 
     public virtual bool TakeDamage(float value)
