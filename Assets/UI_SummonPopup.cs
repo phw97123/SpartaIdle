@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,14 +20,21 @@ public class UI_SummonPopup : UI_Base
 
     [SerializeField] private Button summonButton;
     [SerializeField] private Button closeButton;
+    [SerializeField] private Toggle autoSummonToggle;
 
     private List<UI_EquipmentIconSlot> slotPools = new List<UI_EquipmentIconSlot>();
 
     private SummonData summonData;
     private int count;
 
+    private WaitForSeconds waitForDrawSlot = new WaitForSeconds(0.05f);
+    private WaitForSeconds waitForAutoSummon = new WaitForSeconds(2f);
+
     private SummonManager summonManager;
     private CurrencyManager currencyManager;
+
+    private bool isAutoSummon = false;
+    private bool isSummoning = false; 
 
     private bool isInit = false;
 
@@ -42,8 +50,13 @@ public class UI_SummonPopup : UI_Base
         summonManager = SummonManager.Instance;
         currencyManager = CurrencyManager.Instance;
 
-        summonButton.onClick.AddListener(ReSummon);
+        summonButton.onClick.AddListener(OnReSummon);
         closeButton.onClick.AddListener(CloseUI);
+        autoSummonToggle.onValueChanged.AddListener(isOn =>
+        {
+            if (isOn) isAutoSummon = true; 
+            else isAutoSummon = false;
+        });
     }
 
     public void UpdateUI(SummonData data)
@@ -64,7 +77,6 @@ public class UI_SummonPopup : UI_Base
             if (!slot.gameObject.activeSelf)
             {
                 selectSlot = slot;
-                slot.gameObject.SetActive(true);
                 break;
             }
         }
@@ -86,33 +98,51 @@ public class UI_SummonPopup : UI_Base
 
     public void OnSummon(SummonData data, int count)
     {
+        StartCoroutine(DrawSummonSlot(data, count));
+    }
+
+    private IEnumerator DrawSummonSlot(SummonData data, int count)
+    {
         summonData = data;
         this.count = count;
 
         ReturnToPools();
-
         List<EquipmentData> summondataList = summonManager.SummonEquipment(data, count);
 
         for (int i = 0; i < summondataList.Count; i++)
         {
+            isSummoning = true; 
             UI_EquipmentIconSlot slot = Get();
             slot.UpdateSlotUI(summondataList[i]);
+            slot.gameObject.SetActive(true);
+            yield return waitForDrawSlot;
         }
 
         currencyManager.SubtractCurrency(CurrencyType.Dia, SUMMON_PRICE * count);
         data.UpdateExp(SUMMON_EXP * count);
-    }
-
-    public void ReSummon()
-    {
-        ReturnToPools();
-        OnSummon(summonData, count);
         UpdateUI(summonData);
     }
 
-    public override void CloseUI()
+    public void OnReSummon()
     {
-        base.CloseUI();
+        if (isAutoSummon)
+        {
+            StartCoroutine(AutoSummon());
+        }
+        else
+        {
+            StartCoroutine(DrawSummonSlot(summonData, count));
+        }
+    }
+
+    IEnumerator AutoSummon()
+    {
+        while (isAutoSummon)
+        {
+            ReturnToPools();
+            OnSummon(summonData, count);
+            yield return waitForAutoSummon;
+        }
     }
 
     private void ReturnToPools()
@@ -121,5 +151,11 @@ public class UI_SummonPopup : UI_Base
         {
             slot.gameObject.SetActive(false);
         }
+    }
+
+    public override void CloseUI()
+    {
+        if (isSummoning) return; 
+        base.CloseUI();
     }
 }

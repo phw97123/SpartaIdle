@@ -321,7 +321,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!222 &2176397456156354465
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -485,6 +485,7 @@ MonoBehaviour:
   slotContent: {fileID: 5400428955149255138}
   summonButton: {fileID: 4648532437478444985}
   closeButton: {fileID: 1690614653517743984}
+  autoSummonToggle: {fileID: 6899553750907950671}
 --- !u!1 &2525690633119305249
 GameObject:
   m_ObjectHideFlags: 0
