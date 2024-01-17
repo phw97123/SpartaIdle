@@ -1,6 +1,6 @@
 public class PlayerStateMachine : StateMachine
 {
-    public Player Player { get; }
+    public prevPlayer Player { get; }
     public Health Target { get; set; }
     public PlayerIdleState IdleState { get; }
     public PlayerChasingState ChasingState { get; }
@@ -8,7 +8,7 @@ public class PlayerStateMachine : StateMachine
 
     public float MovementSpeed { get; private set; }
 
-    public PlayerStateMachine(Player player)
+    public PlayerStateMachine(prevPlayer player)
     {
         Player = player;
         Target = null;

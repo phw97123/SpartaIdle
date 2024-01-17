@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Monster
   - Enemy
-  - Weapon
+  - AttackedPosition
   layers:
   - Default
   - TransparentFX
@@ -14,12 +15,12 @@ TagManager:
   - Water
   - UI
   - 
-  - Enemy
   - 
   - 
   - 
   - 
-  - 
+  - Player
+  - Monster
   - 
   - 
   - 

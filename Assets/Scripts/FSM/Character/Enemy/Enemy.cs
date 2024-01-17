@@ -104,7 +104,6 @@ public class Enemy : MonoBehaviour
         }
         gameObject.SetActive(false);
         InitSprite();
-
     }
 
     public void InitSprite()

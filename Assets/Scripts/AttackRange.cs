@@ -1,30 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackRange : MonoBehaviour
 {
-    [SerializeField] Player player;
-    [SerializeField] int monstersDetectedCount = 0;
+    [SerializeField] private Character character;
+    [SerializeField] private int enemyCount = 0;
 
+    private void Awake()
+    {
+        character = transform.parent.GetComponent<Character>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Enemy"))
+        if(collision.CompareTag(character.EnemyTag))
         {
-            monstersDetectedCount++;
+            enemyCount++;
+            character.isAttacking = enemyCount == 0? false: true;
         }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        player.IsAttackRange = monstersDetectedCount == 0 ? false : true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Enemy"))
+        if(collision.CompareTag(character.EnemyTag))
         {
-            monstersDetectedCount--;
-            player.IsAttackRange = monstersDetectedCount == 0 ? false : true;
+            enemyCount--;
+            character.isAttacking = enemyCount == 0? false: true;
         }
     }
 }

@@ -168,7 +168,7 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnEquipBtn()
     {
-        Player.Instance.OnEquip?.Invoke(selectedData);
+        prevPlayer.Instance.OnEquip?.Invoke(selectedData);
         AllSlotUpdate(selectedData.type);
         SetOnEquippedBtnUI(selectedData.isEquipped);
     }
@@ -181,7 +181,7 @@ public class UI_EquipmentPanel : UI_Base
 
     private void OnUnEquipBtn()
     {
-        Player.Instance.OnUnEquip?.Invoke(selectedData.type);
+        prevPlayer.Instance.OnUnEquip?.Invoke(selectedData.type);
         selectedData.isEquipped = false;
         AllSlotUpdate(selectedData.type);
         SetOnEquippedBtnUI(selectedData.isEquipped);
@@ -190,7 +190,7 @@ public class UI_EquipmentPanel : UI_Base
     private void OnAutoEquipBtn()
     {
         EquipmentData data = equipmentManager.AutoEquip(selectedData.type);
-        Player.Instance.OnEquip?.Invoke(data);
+        prevPlayer.Instance.OnEquip?.Invoke(data);
         AllSlotUpdate(selectedData.type);
         SetOnEquippedBtnUI(selectedData.isEquipped);
     }

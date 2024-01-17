@@ -23,7 +23,7 @@ public class UI_Topbar : MonoBehaviour
     }
     private void Start()
     {
-        playerData = Player.Instance.playerData;
+        playerData = prevPlayer.Instance.playerData;
         SetupEventListeners();
         UpdatePlayerInfoUI();
 

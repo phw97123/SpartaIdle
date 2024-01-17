@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
 
     [Header("ChangeColor")]
     [SerializeField] private GameObject character;
-    [SerializeField] private SpriteRenderer shadowSprite;
+    [SerializeField] private SpriteRenderer shadowSprite = null;
 
     private Color damageColor;
 
